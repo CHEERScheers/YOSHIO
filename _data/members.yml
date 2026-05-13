@@ -1,59 +1,78 @@
-# role_key controls which section a member appears in:
-#   pi        — Principal Investigator (single, larger card)
-#   postdoc   — Postdoctoral Researcher
-#   student   — Graduate / Master student
-#   alumni    — Alumni / past members
-# Members are rendered in the order listed below.
-
 members:
-  - role_key: "pi"
-    name_en: "Dr. Masafumi Yoshio (吉尾 正史)"
-    name_ja: "吉尾 正史 博士"
-    role_en: "Group Leader, Molecular Mechatronics Group, NIMS<br/>Professor (concurrent), Hokkaido University (NIMS Joint Graduate School)"
-    role_ja: "物質・材料研究機構 高分子・バイオ材料研究センター 分子メカトロニクスグループ グループリーダー<br/>北海道大学大学院 総合化学院 物質化学コース 教授（NIMS連係大学院）"
-    bio_en: "Research interests: supramolecules, liquid crystals, nanofibers, ion conductors, organic semiconductors, thermal conductivity, and mechanochromic luminescence. Awards include the SPSJ Mitsubishi Chemical Award (2024), the NIMS President's Award for Research Encouragement (2024), the JLCS Paper Award (2024, 2019), and the SPSJ Hitachi Chemical Award (2012)."
-    bio_ja: "専門は超分子・液晶・ナノファイバー・イオン伝導体・有機半導体・熱伝導・メカノクロミック発光。受賞歴：高分子学会三菱ケミカル賞（2024）、NIMS理事長賞研究奨励賞（2024）、日本液晶学会論文賞（2024, 2019）、高分子学会日立化成賞（2012）、東京大学工学部ベストティーチングアワード（2014）など。"
-    photo: "/assets/images/member-yoshio.jpg"
-    initial: "Y"
+  - role_ja: 物質・材料研究機構 高分子・バイオ材料研究センター 分子メカトロニクスグループ グループリーダー<br/>北海道大学大学院 総合化学院
+      物質化学コース 教授（NIMS連係大学院）
+    bio_en: "Research interests: supramolecules, liquid crystals, nanofibers, ion
+      conductors, organic semiconductors, thermal conductivity, and
+      mechanochromic luminescence. Awards include the SPSJ Mitsubishi Chemical
+      Award (2024), the NIMS President's Award for Research Encouragement
+      (2024), the JLCS Paper Award (2024, 2019), and the SPSJ Hitachi Chemical
+      Award (2012)."
+    initial: Y
+    name_ja: 吉尾 正史 博士
+    bio_ja: 専門は超分子・液晶・ナノファイバー・イオン伝導体・有機半導体・熱伝導・メカノクロミック発光。受賞歴：高分子学会三菱ケミカル賞（2024）、NIMS理事長賞研究奨励賞（2024）、日本液晶学会論文賞（2024,
+      2019）、高分子学会日立化成賞（2012）、東京大学工学部ベストティーチングアワード（2014）など。
+    role_en: Group Leader, Molecular Mechatronics Group, NIMS<br/>Professor
+      (concurrent), Hokkaido University (NIMS Joint Graduate School)
+    photo: /assets/images/member-yoshio.jpg
+    role_key: pi
     links:
-      - { label: "NIMS SAMURAI", url: "https://samurai.nims.go.jp/profiles/yoshio_masafumi?locale=en" }
-      - { label: "ORCID",        url: "https://orcid.org/0000-0002-1442-4352" }
-      - { label: "Google Scholar", url: "https://scholar.google.com/scholar?hl=ja&q=%22YOSHIO%2C+Masafumi%22" }
-      - { label: "researchmap",  url: "https://researchmap.jp/masafumi_yoshio" }
-      - { label: "Web of Science", url: "https://www.webofscience.com/wos/author/record/U-7213-2017" }
-      - { label: "Scopus",       url: "https://www.scopus.com/authid/detail.uri?authorId=7005932795" }
-
-  - role_key: "postdoc"
-    name_en: "Dr. Chengyang Liu (劉 成洋)"
-    name_ja: "劉 成洋 博士"
-    role_en: "Postdoctoral Research Fellow, Molecular Mechatronics Group, NIMS"
-    role_ja: "物質・材料研究機構 分子メカトロニクスグループ 博士研究員"
-    bio_en: "Research focus: design of ion-conductive liquid-crystalline polymer composites and phosphate columnar liquid crystals for electromechanical soft actuators and haptic devices. Recent first-author papers in Adv. Funct. Mater., ACS Appl. Mater. Interfaces, Sci. Technol. Adv. Mater., and Materials Today Chemistry."
-    bio_ja: "研究テーマ：イオン伝導性液晶／高分子コンポジット、リン酸エステル系カラムナー液晶を活用した電気駆動ソフトアクチュエータと触覚デバイスの開発。Adv. Funct. Mater.、ACS Appl. Mater. Interfaces、Sci. Technol. Adv. Mater.、Materials Today Chemistry 等に筆頭著者論文を発表。"
-    photo: "/assets/images/member-liu.jpg"
-    initial: "L"
+      - label: NIMS SAMURAI
+        url: https://samurai.nims.go.jp/profiles/yoshio_masafumi?locale=en
+      - label: ORCID
+        url: https://orcid.org/0000-0002-1442-4352
+      - label: Google Scholar
+        url: https://scholar.google.com/scholar?hl=ja&q=%22YOSHIO%2C+Masafumi%22
+      - label: researchmap
+        url: https://researchmap.jp/masafumi_yoshio
+      - label: Web of Science
+        url: https://www.webofscience.com/wos/author/record/U-7213-2017
+      - label: Scopus
+        url: https://www.scopus.com/authid/detail.uri?authorId=7005932795
+    name_en: Dr. Masafumi Yoshio (吉尾 正史)
+  - role_ja: 物質・材料研究機構 分子メカトロニクスグループ 博士研究員
+    bio_en: "Research focus: design of ion-conductive liquid-crystalline polymer
+      composites and phosphate columnar liquid crystals for electromechanical
+      soft actuators and haptic devices. Recent first-author papers in Adv.
+      Funct. Mater., ACS Appl. Mater. Interfaces, Sci. Technol. Adv. Mater., and
+      Materials Today Chemistry."
+    initial: L
+    name_ja: 劉 成洋 博士
+    bio_ja: 研究テーマ：イオン伝導性液晶／高分子コンポジット、リン酸エステル系カラムナー液晶を活用した電気駆動ソフトアクチュエータと触覚デバイスの開発。Adv.
+      Funct. Mater.、ACS Appl. Mater. Interfaces、Sci. Technol. Adv.
+      Mater.、Materials Today Chemistry 等に筆頭著者論文を発表。
+    role_en: Postdoctoral Research Fellow, Molecular Mechatronics Group, NIMS
+    photo: /assets/images/dscf9380.jpeg
+    role_key: postdoc
     links:
-      - { label: "NIMS SAMURAI", url: "https://samurai.nims.go.jp/profiles/liu_chengyang?locale=en" }
-      - { label: "ORCID",        url: "https://orcid.org/0000-0001-5072-6991" }
-      - { label: "Google Scholar", url: "https://scholar.google.com/scholar?hl=ja&q=%22LIU%2C+Chengyang%22" }
-      - { label: "Email",        url: "mailto:LIU.Chengyang@nims.go.jp" }
-
+      - label: NIMS SAMURAI
+        url: https://samurai.nims.go.jp/profiles/liu_chengyang?locale=en
+      - label: ORCID
+        url: https://orcid.org/0000-0001-5072-6991
+      - label: Google Scholar
+        url: https://scholar.google.com/scholar?hl=ja&q=%22LIU%2C+Chengyang%22
+      - label: Email
+        url: mailto:LIU.Chengyang@nims.go.jp
+    name_en: Dr. Chengyang Liu (劉 成洋)
 join:
-  phd_tag_en: "Ph.D. Course"
-  phd_tag_ja: "博士課程"
-  phd_title_en: "Graduate Students"
-  phd_title_ja: "大学院生"
-  phd_desc_en: "Through the NIMS Joint Graduate School with Hokkaido University. Tuition support and research scholarships available for qualified applicants."
-  phd_desc_ja: "NIMS と北海道大学による連係大学院制度を通じて受入れを行っています。授業料支援・研究奨学金制度をご利用いただけます。"
-  postdoc_tag_en: "Postdoc"
-  postdoc_tag_ja: "ポスドク"
-  postdoc_title_en: "Postdoctoral Fellows"
-  postdoc_title_ja: "博士研究員"
-  postdoc_desc_en: "We welcome motivated postdocs with backgrounds in liquid crystals, supramolecular chemistry, polymer science, or device engineering."
-  postdoc_desc_ja: "液晶、超分子化学、高分子科学、デバイス工学等にバックグラウンドを持つ意欲ある研究者の応募を歓迎します。"
-  visiting_tag_en: "Visiting"
-  visiting_tag_ja: "訪問研究"
-  visiting_title_en: "Visiting Researchers"
-  visiting_title_ja: "訪問研究員"
-  visiting_desc_en: "Short-term visits and collaborative research are possible. Please contact Prof. Yoshio with a CV and research proposal."
-  visiting_desc_ja: "短期訪問・共同研究も可能です。CV と研究提案を添えて吉尾教授までご連絡ください。"
+  phd_tag_en: Ph.D. Course
+  phd_title_en: Graduate Students
+  postdoc_tag_ja: ポスドク
+  phd_desc_en: Through the NIMS Joint Graduate School with Hokkaido University.
+    Tuition support and research scholarships available for qualified
+    applicants.
+  visiting_tag_ja: 訪問研究
+  postdoc_title_ja: 博士研究員
+  visiting_title_ja: 訪問研究員
+  phd_tag_ja: 博士課程
+  visiting_desc_en: Short-term visits and collaborative research are possible.
+    Please contact Prof. Yoshio with a CV and research proposal.
+  postdoc_desc_en: We welcome motivated postdocs with backgrounds in liquid
+    crystals, supramolecular chemistry, polymer science, or device engineering.
+  phd_title_ja: 大学院生
+  phd_desc_ja: NIMS と北海道大学による連係大学院制度を通じて受入れを行っています。授業料支援・研究奨学金制度をご利用いただけます。
+  postdoc_tag_en: Postdoc
+  visiting_tag_en: Visiting
+  postdoc_title_en: Postdoctoral Fellows
+  visiting_title_en: Visiting Researchers
+  visiting_desc_ja: 短期訪問・共同研究も可能です。CV と研究提案を添えて吉尾教授までご連絡ください。
+  postdoc_desc_ja: 液晶、超分子化学、高分子科学、デバイス工学等にバックグラウンドを持つ意欲ある研究者の応募を歓迎します。
