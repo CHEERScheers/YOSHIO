@@ -121,7 +121,7 @@ items:
     title: Synergistically Coordinated Ni Complex Ink for Low‐Temperature and Highly
       Reliable Printed Electronics
     authors: Lingying Li, Shunto Arai, Mayumi Kumada, Takeshi Yasuda, Kenji
-      Sakamoto, Kohsaku Kawakami, Masafumi Yoshio, Takeo Minari
+      Sakamoto, Kohsaku Kawakami, **Masafumi Yoshio**, Takeo Minari
   - authors: Yu Cao, Tejal Nirgude, Jonathan Jende, Alexander Jarosik, Alexey
       Eremin, Feng Liu, Masafumi Yoshio, Mohamed Alaasar
     title: "Multifunctional Oxadiazole‐Based Polycatenars: A Pathway to Polar
@@ -139,9 +139,9 @@ items:
     volume: "2"
     pages: "202500075"
     doi: 10.1002/adrr.202500075
-    authors: " Chengyang Liu, Masafumi Yoshio"
+    authors: " Chengyang Liu, **Masafumi Yoshio**"
   - year: 2026
-    authors: Masafumi Yoshio
+    authors: "**Masafumi Yoshio**"
     title: Functional Gels
     journal: Functional Soft Matter II
     doi: 10.1007/978-981-92-0100-6
