@@ -1,0 +1,268 @@
+# =====================================================================
+#  Decap CMS configuration for YOSHIO Lab
+#  Docs: https://decapcms.org/docs/configuration-options/
+# =====================================================================
+
+# ---- BACKEND ------------------------------------------------------------------
+# Option A (Recommended): Netlify + git-gateway + Netlify Identity
+#   - Easiest auth, no OAuth app required.
+#   - Site must be deployed on Netlify; enable Identity + Git Gateway in dashboard.
+backend:
+  name: git-gateway
+  branch: main           # change if your default branch is "master"
+
+# Option B: GitHub Pages without Netlify (uncomment and replace)
+# backend:
+#   name: github
+#   repo: YOUR-USERNAME/YOUR-REPO
+#   branch: main
+#   base_url: https://YOUR-OAUTH-PROVIDER.example.com   # required for GitHub OAuth
+
+# Allow local editing during development with `npx decap-server` running on :8081
+local_backend: true
+
+# ---- MEDIA / IMAGE UPLOADS ---------------------------------------------------
+media_folder: "assets/images"
+public_folder: "/assets/images"
+
+# ---- COLLECTIONS -------------------------------------------------------------
+collections:
+
+  # ============================================================
+  # 1. Site Settings (Hero / About / Stats / Contact)
+  # ============================================================
+  - name: "site"
+    label: "Site / 站点设置"
+    description: "Hero、About、统计数字、联系信息等全局内容"
+    editor:
+      preview: true
+    files:
+      - name: "site"
+        label: "Site Content"
+        file: "_data/site.yml"
+        fields:
+          # Brand
+          - label: "Brand name (EN)"
+            name: "brand"
+            widget: "object"
+            fields:
+              - { label: "EN", name: "en", widget: "string" }
+              - { label: "JA", name: "ja", widget: "string" }
+          - label: "Brand sub-title"
+            name: "brand_sub"
+            widget: "object"
+            fields:
+              - { label: "EN", name: "en", widget: "string" }
+              - { label: "JA", name: "ja", widget: "string" }
+
+          # Hero
+          - label: "Hero section"
+            name: "hero"
+            widget: "object"
+            collapsed: false
+            fields:
+              - { label: "Kicker (EN)",  name: "kicker_en", widget: "string" }
+              - { label: "Kicker (JA)",  name: "kicker_ja", widget: "string" }
+              - { label: "Title (EN)",   name: "title_en",  widget: "text" }
+              - { label: "Title (JA)",   name: "title_ja",  widget: "text" }
+              - { label: "Lead (EN)",    name: "lead_en",   widget: "text" }
+              - { label: "Lead (JA)",    name: "lead_ja",   widget: "text" }
+              - { label: "CTA Research (EN)", name: "cta_research_en", widget: "string", required: false }
+              - { label: "CTA Research (JA)", name: "cta_research_ja", widget: "string", required: false }
+              - { label: "CTA Contact (EN)",  name: "cta_contact_en",  widget: "string", required: false }
+              - { label: "CTA Contact (JA)",  name: "cta_contact_ja",  widget: "string", required: false }
+              - { label: "Background image", name: "background_image", widget: "image", required: false }
+
+          # About
+          - label: "About section"
+            name: "about"
+            widget: "object"
+            collapsed: false
+            fields:
+              - { label: "Section title (EN)", name: "title_en", widget: "string" }
+              - { label: "Section title (JA)", name: "title_ja", widget: "string" }
+              - { label: "Paragraph 1 (EN)",   name: "p1_en",    widget: "text" }
+              - { label: "Paragraph 1 (JA)",   name: "p1_ja",    widget: "text" }
+              - { label: "Paragraph 2 (EN)",   name: "p2_en",    widget: "text" }
+              - { label: "Paragraph 2 (JA)",   name: "p2_ja",    widget: "text" }
+
+          # Stats
+          - label: "Stat numbers (max 3)"
+            name: "stats"
+            widget: "list"
+            min: 1
+            max: 3
+            summary: "{{fields.value}} — {{fields.label_en}}"
+            fields:
+              - { label: "Value",        name: "value",    widget: "string" }
+              - { label: "Label (EN)",   name: "label_en", widget: "string" }
+              - { label: "Label (JA)",   name: "label_ja", widget: "string" }
+
+          # Contact
+          - label: "Contact section"
+            name: "contact"
+            widget: "object"
+            collapsed: false
+            fields:
+              - { label: "Address (EN, HTML allowed)", name: "address_en", widget: "text" }
+              - { label: "Address (JA, HTML allowed)", name: "address_ja", widget: "text" }
+              - { label: "Email",   name: "email", widget: "string" }
+              - { label: "Phone",   name: "phone", widget: "string" }
+              - { label: "Map latitude",  name: "map_lat", widget: "number", value_type: "float", step: 0.0001 }
+              - { label: "Map longitude", name: "map_lng", widget: "number", value_type: "float", step: 0.0001 }
+              - { label: "Join statement (EN)", name: "join_en", widget: "text" }
+              - { label: "Join statement (JA)", name: "join_ja", widget: "text" }
+              - label: "External links"
+                name: "external_links"
+                widget: "list"
+                summary: "{{fields.label_en}} — {{fields.url}}"
+                fields:
+                  - { label: "Label (EN)", name: "label_en", widget: "string" }
+                  - { label: "Label (JA)", name: "label_ja", widget: "string" }
+                  - { label: "URL",        name: "url",      widget: "string" }
+
+  # ============================================================
+  # 2. News
+  # ============================================================
+  - name: "news"
+    label: "News / 新闻"
+    description: "时间轴样式的最新动向，自动按列表顺序显示"
+    editor:
+      preview: true
+    files:
+      - name: "news"
+        label: "News list"
+        file: "_data/news.yml"
+        fields:
+          - label: "News items"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.date}} — {{fields.title_en}}"
+            fields:
+              - { label: "Date (e.g. 2026.04 or 2026.04.18)", name: "date", widget: "string" }
+              - { label: "Title (EN)",       name: "title_en",       widget: "string" }
+              - { label: "Title (JA) / 標題", name: "title_ja",       widget: "string" }
+              - { label: "Description (EN)", name: "description_en", widget: "text" }
+              - { label: "Description (JA)", name: "description_ja", widget: "text" }
+              - { label: "Link URL (optional)", name: "link", widget: "string", required: false }
+
+  # ============================================================
+  # 3. Research themes
+  # ============================================================
+  - name: "research"
+    label: "Research / 研究"
+    description: "研究方向卡片（含图片、双语介绍）"
+    editor:
+      preview: true
+    files:
+      - name: "research"
+        label: "Research themes"
+        file: "_data/research.yml"
+        fields:
+          - { label: "Section lead (EN)", name: "lead_en", widget: "text" }
+          - { label: "Section lead (JA)", name: "lead_ja", widget: "text" }
+          - label: "Themes"
+            name: "themes"
+            widget: "list"
+            summary: "{{fields.tag_en}} — {{fields.title_en}}"
+            fields:
+              - { label: "Tag (EN, e.g. Theme 01)", name: "tag_en", widget: "string" }
+              - { label: "Tag (JA)",                name: "tag_ja", widget: "string" }
+              - { label: "Title (EN)",              name: "title_en", widget: "string" }
+              - { label: "Title (JA)",              name: "title_ja", widget: "string" }
+              - { label: "Description (EN)",        name: "description_en", widget: "text" }
+              - { label: "Description (JA)",        name: "description_ja", widget: "text" }
+              - { label: "Image", name: "image", widget: "image", required: false, hint: "Upload from your computer — saved to /assets/images/" }
+
+  # ============================================================
+  # 4. Publications
+  # ============================================================
+  - name: "publications"
+    label: "Publications / 论文"
+    description: "上传论文时填表即可，年份会自动分组"
+    editor:
+      preview: true
+    files:
+      - name: "publications"
+        label: "Publication list"
+        file: "_data/publications.yml"
+        fields:
+          - label: "Publications"
+            name: "items"
+            widget: "list"
+            summary: "[{{fields.year}}] {{fields.title}}"
+            fields:
+              - { label: "Year", name: "year", widget: "number", value_type: "int", min: 1990, max: 2100 }
+              - { label: "Authors (use **bold** for lab members)", name: "authors", widget: "string" }
+              - { label: "Paper title",  name: "title",   widget: "string" }
+              - { label: "Journal",      name: "journal", widget: "string" }
+              - { label: "Volume",       name: "volume",  widget: "string", required: false }
+              - { label: "Pages",        name: "pages",   widget: "string", required: false }
+              - { label: "DOI (e.g. 10.1021/…)", name: "doi", widget: "string", required: false }
+
+  # ============================================================
+  # 5. Members
+  # ============================================================
+  - name: "members"
+    label: "Members / 成员"
+    description: "成员管理：上传头像、填写双语介绍、外部链接"
+    editor:
+      preview: true
+    files:
+      - name: "members"
+        label: "Members list"
+        file: "_data/members.yml"
+        fields:
+          - label: "Members"
+            name: "members"
+            widget: "list"
+            summary: "[{{fields.role_key}}] {{fields.name_en}}"
+            fields:
+              - label: "Role category"
+                name: "role_key"
+                widget: "select"
+                options:
+                  - { label: "Principal Investigator", value: "pi" }
+                  - { label: "Postdoctoral Researcher", value: "postdoc" }
+                  - { label: "Graduate / Master Student", value: "student" }
+                  - { label: "Alumni",  value: "alumni" }
+              - { label: "Name (EN)", name: "name_en", widget: "string" }
+              - { label: "Name (JA) / 氏名", name: "name_ja", widget: "string" }
+              - { label: "Position / role (EN, HTML allowed)", name: "role_en", widget: "text" }
+              - { label: "Position / role (JA, HTML allowed)", name: "role_ja", widget: "text" }
+              - { label: "Bio (EN)", name: "bio_en", widget: "text", required: false }
+              - { label: "Bio (JA)", name: "bio_ja", widget: "text", required: false }
+              - { label: "Photo (upload)", name: "photo", widget: "image", required: false }
+              - { label: "Initial letter (fallback when no photo)", name: "initial", widget: "string", required: false, default: "M" }
+              - label: "External links"
+                name: "links"
+                widget: "list"
+                required: false
+                summary: "{{fields.label}} → {{fields.url}}"
+                fields:
+                  - { label: "Label", name: "label", widget: "string" }
+                  - { label: "URL",   name: "url",   widget: "string" }
+
+          - label: "Join Us section"
+            name: "join"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "PhD tag (EN)",     name: "phd_tag_en",      widget: "string" }
+              - { label: "PhD tag (JA)",     name: "phd_tag_ja",      widget: "string" }
+              - { label: "PhD title (EN)",   name: "phd_title_en",    widget: "string" }
+              - { label: "PhD title (JA)",   name: "phd_title_ja",    widget: "string" }
+              - { label: "PhD desc (EN)",    name: "phd_desc_en",     widget: "text" }
+              - { label: "PhD desc (JA)",    name: "phd_desc_ja",     widget: "text" }
+              - { label: "Postdoc tag (EN)",    name: "postdoc_tag_en",   widget: "string" }
+              - { label: "Postdoc tag (JA)",    name: "postdoc_tag_ja",   widget: "string" }
+              - { label: "Postdoc title (EN)",  name: "postdoc_title_en", widget: "string" }
+              - { label: "Postdoc title (JA)",  name: "postdoc_title_ja", widget: "string" }
+              - { label: "Postdoc desc (EN)",   name: "postdoc_desc_en",  widget: "text" }
+              - { label: "Postdoc desc (JA)",   name: "postdoc_desc_ja",  widget: "text" }
+              - { label: "Visiting tag (EN)",   name: "visiting_tag_en",   widget: "string" }
+              - { label: "Visiting tag (JA)",   name: "visiting_tag_ja",   widget: "string" }
+              - { label: "Visiting title (EN)", name: "visiting_title_en", widget: "string" }
+              - { label: "Visiting title (JA)", name: "visiting_title_ja", widget: "string" }
+              - { label: "Visiting desc (EN)",  name: "visiting_desc_en",  widget: "text" }
+              - { label: "Visiting desc (JA)",  name: "visiting_desc_ja",  widget: "text" }

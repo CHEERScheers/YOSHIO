@@ -1,0 +1,64 @@
+brand:
+  en: "YOSHIO Lab"
+  ja: "吉尾研究室"
+brand_sub:
+  en: "Molecular Mechatronics · NIMS"
+  ja: "分子メカトロニクスG · NIMS"
+
+hero:
+  kicker_en: "Molecular Mechatronics Group · NIMS / Hokkaido Univ."
+  kicker_ja: "物質・材料研究機構 分子メカトロニクスグループ／北海道大学"
+  title_en: "Designing nanostructured liquid crystals<br/>for next-generation soft actuators."
+  title_ja: "液晶ナノ構造のデザインで、<br/>次世代ソフトアクチュエータを拓く。"
+  lead_en: "The YOSHIO Lab designs supramolecular liquid crystals and polymer electrolytes that channel ions through self-assembled nanostructures. We translate this molecular control into electromechanical soft actuators, haptic devices, and energy materials at the intersection of chemistry, soft matter physics, and mechatronics."
+  lead_ja: "吉尾研究室では、超分子液晶やイオン伝導性高分子電解質を設計し、自己組織化ナノ構造の中をイオンが高速に流れる新しい物質群を創出しています。化学・ソフトマター物理・メカトロニクスの境界領域に立ち、電気駆動ソフトアクチュエータ、触覚デバイス、エネルギー材料の革新を目指します。"
+  cta_research_en: "Explore Research"
+  cta_research_ja: "研究を見る"
+  cta_contact_en: "Contact Us"
+  cta_contact_ja: "お問い合わせ"
+  background_image: "/assets/images/hero-bg.jpg"
+
+about:
+  title_en: "About the Lab"
+  title_ja: "研究室について"
+  p1_en: "The YOSHIO Lab is the Molecular Mechatronics Group at the Research Center for Macromolecules and Biomaterials, National Institute for Materials Science (NIMS), led by Dr. Masafumi Yoshio, who concurrently serves as a Professor at the Graduate School of Chemical Sciences and Engineering, Hokkaido University (NIMS Joint Graduate School)."
+  p1_ja: "吉尾研究室は、物質・材料研究機構（NIMS）高分子・バイオ材料研究センター 分子メカトロニクスグループとして活動しており、グループリーダーである吉尾正史博士は、北海道大学大学院 総合化学院 物質化学コース（NIMS連係大学院）の教授を兼任しています。"
+  p2_en: "We design supramolecular liquid crystals, ionic polymer electrolytes, and π-conjugated functional materials that exploit nanophase-separated self-assembly to control the transport of ions, electrons, and light. Our work bridges fundamental soft-matter chemistry with next-generation soft actuators, haptic interfaces, sensors, and energy devices."
+  p2_ja: "ナノ相分離自己組織化を活用して、イオン・電子・光の輸送を精密制御する超分子液晶、イオン性高分子電解質、π共役機能性材料を設計しています。基礎的なソフトマター化学と、次世代ソフトアクチュエータ・ハプティクスデバイス・センサ・エネルギーデバイスをつなぐ研究を推進しています。"
+
+stats:
+  - value: "2 V"
+    label_en: "Drive voltage"
+    label_ja: "駆動電圧"
+  - value: "100 Hz"
+    label_en: "Actuator response"
+    label_ja: "応答周波数"
+  - value: "100+"
+    label_en: "Publications"
+    label_ja: "論文数"
+
+contact:
+  address_en: "Molecular Mechatronics Group<br/>Research Center for Macromolecules and Biomaterials<br/>National Institute for Materials Science (NIMS)<br/>1-2-1 Sengen, Tsukuba, Ibaraki 305-0047, Japan"
+  address_ja: "物質・材料研究機構（NIMS）<br/>高分子・バイオ材料研究センター 分子メカトロニクスグループ<br/>〒305-0047 茨城県つくば市千現1-2-1"
+  email: "YOSHIO.Masafumi@nims.go.jp"
+  phone: "+81-29-860-4728"
+  map_lat: 36.0686
+  map_lng: 140.1183
+  join_en: "We welcome inquiries from prospective students, postdoctoral fellows, and visiting researchers. Please email Prof. Yoshio with a CV and a brief statement of research interests."
+  join_ja: "進学・滞在を希望される学生、博士研究員、訪問研究者の方々からのお問い合わせを歓迎します。CV と研究関心の概要を添えて、吉尾教授まで電子メールでご連絡ください。"
+  external_links:
+    - label_en: "Molecular Mechatronics Group (NIMS)"
+      label_ja: "分子メカトロニクスグループ（NIMS）"
+      url: "https://www.nims.go.jp/group/molmechatro/index.html"
+    - label_en: "Hokkaido Univ. — Functional Materials Chemistry"
+      label_ja: "北海道大学 機能物質化学講座"
+      url: "https://www.cse.hokudai.ac.jp/lab/mat/functional-materials-chemistry/"
+    - label_en: "NIMS SAMURAI profile (Yoshio)"
+      label_ja: "NIMS SAMURAI プロフィール（吉尾）"
+      url: "https://samurai.nims.go.jp/profiles/yoshio_masafumi?locale=en"
+    - label_en: "NIMS SAMURAI profile (Liu)"
+      label_ja: "NIMS SAMURAI プロフィール（劉）"
+      url: "https://samurai.nims.go.jp/profiles/liu_chengyang?locale=en"
+    - label_en: "Access to NIMS Sengen site"
+      label_ja: "NIMS 千現地区へのアクセス"
+      url: "https://www.nims.go.jp/eng/access/tsukuba_sengen.html"

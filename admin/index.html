@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Content Manager — YOSHIO Lab</title>
+  <link rel="icon" href="data:," />
+
+  <!-- Netlify Identity widget (only used when backend = git-gateway) -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+</head>
+<body>
+
+  <!-- Decap CMS -->
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
+  <!-- Tailwind for live previews so the right pane looks like the real site -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <script>
+    /* ===================================================================
+     *  Live preview templates — render the editor data in a style that
+     *  matches the public site, so the right-hand pane shows "real" UI.
+     * =================================================================== */
+    const h = CMS.h || window.h;        // preact `h` (also exposed by CMS)
+    const createClass = CMS.createClass;
+
+    // Small helpers --------------------------------------------------------
+    function get(entry, path, fallback = '') {
+      try {
+        const val = entry.getIn(['data', ...path.split('.')]);
+        return val == null ? fallback : (typeof val.toJS === 'function' ? val.toJS() : val);
+      } catch (_) { return fallback; }
+    }
+    function richHTML(s) {
+      // Convert **bold** markdown to <strong>
+      return String(s || '').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    }
+    function previewShell(children) {
+      return h(
+        'div',
+        {
+          style: {
+            fontFamily: "'Inter','Noto Sans JP',system-ui,sans-serif",
+            color: '#0f1f3a',
+            padding: '24px',
+            background: '#f8fafc',
+            minHeight: '100%',
+          },
+        },
+        children
+      );
+    }
+
+    // ---- Site (Hero / About / Stats / Contact) ---------------------------
+    const SitePreview = ({ entry }) =>
+      previewShell([
+        h('div', { style: { background: 'linear-gradient(135deg,#172d52,#3a64a3)', color: '#fff', padding: '32px', borderRadius: '12px' } }, [
+          h('div', { style: { fontSize: '11px', letterSpacing: '0.2em', textTransform: 'uppercase', opacity: 0.8 } },
+            get(entry, 'hero.kicker_en')),
+          h('h1', {
+            style: { fontSize: '32px', fontWeight: 600, margin: '12px 0', lineHeight: 1.2 },
+            dangerouslySetInnerHTML: { __html: get(entry, 'hero.title_en') },
+          }),
+          h('p', { style: { opacity: 0.85, lineHeight: 1.55 } }, get(entry, 'hero.lead_en')),
+        ]),
+        h('div', { style: { marginTop: '20px', padding: '20px', background: '#fff', borderRadius: '12px', boxShadow: '0 6px 20px -12px rgba(15,31,58,0.2)' } }, [
+          h('h2', { style: { fontSize: '20px', fontWeight: 600, color: '#1f3c6b' } }, get(entry, 'about.title_en')),
+          h('p', { style: { marginTop: '8px', lineHeight: 1.6 } }, get(entry, 'about.p1_en')),
+          h('p', { style: { marginTop: '8px', lineHeight: 1.6 } }, get(entry, 'about.p2_en')),
+          h('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '12px', marginTop: '16px' } },
+            (get(entry, 'stats', []) || []).map((s, i) =>
+              h('div', { key: i, style: { textAlign: 'center', background: '#f0f4fa', borderRadius: 8, padding: '12px' } }, [
+                h('div', { style: { fontSize: 22, fontWeight: 700, color: '#1f3c6b' } }, s.value),
+                h('div', { style: { fontSize: 10, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#284c85', marginTop: 4 } }, s.label_en),
+              ])
+            )
+          ),
+        ]),
+        h('div', { style: { marginTop: '20px', padding: '20px', background: '#fff', borderRadius: '12px' } }, [
+          h('h3', { style: { fontSize: 14, color: '#284c85', letterSpacing: '0.1em', textTransform: 'uppercase' } }, 'Contact'),
+          h('p', {
+            style: { marginTop: 8, lineHeight: 1.55 },
+            dangerouslySetInnerHTML: { __html: get(entry, 'contact.address_en') },
+          }),
+          h('p', { style: { marginTop: 6 } }, '✉ ' + get(entry, 'contact.email')),
+          h('p', null, '☎ ' + get(entry, 'contact.phone')),
+        ]),
+      ]);
+
+    // ---- News -----------------------------------------------------------
+    const NewsPreview = ({ entry }) => {
+      const items = get(entry, 'items', []) || [];
+      return previewShell([
+        h('h2', { style: { fontSize: 24, fontWeight: 600, borderBottom: '3px solid #284c85', display: 'inline-block', paddingBottom: 6 } }, 'News'),
+        h('div', { style: { marginTop: 18, paddingLeft: 22, borderLeft: '2px solid #dbe5f2' } },
+          items.map((it, i) =>
+            h('div', { key: i, style: { position: 'relative', marginBottom: 18 } }, [
+              h('span', { style: { position: 'absolute', left: -28, top: 6, width: 12, height: 12, borderRadius: '50%', background: '#284c85', boxShadow: '0 0 0 4px #f0f4fa' } }),
+              h('div', { style: { fontSize: 11, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#284c85' } }, it.date),
+              h('h3', { style: { fontSize: 16, fontWeight: 600, margin: '4px 0 4px' } }, it.title_en),
+              h('p',  { style: { color: '#1f3c6b', fontSize: 14, lineHeight: 1.55 } }, it.description_en),
+            ])
+          )
+        ),
+      ]);
+    };
+
+    // ---- Research -------------------------------------------------------
+    const ResearchPreview = ({ entry }) => {
+      const themes = get(entry, 'themes', []) || [];
+      return previewShell([
+        h('h2', { style: { fontSize: 24, fontWeight: 600, borderBottom: '3px solid #284c85', display: 'inline-block', paddingBottom: 6 } }, 'Research'),
+        h('p',  { style: { marginTop: 12, color: '#1f3c6b' } }, get(entry, 'lead_en')),
+        h('div', { style: { marginTop: 18, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: 14 } },
+          themes.map((t, i) =>
+            h('div', { key: i, style: { background: '#fff', border: '1px solid #dbe5f2', borderRadius: 12, overflow: 'hidden', boxShadow: '0 8px 18px -14px rgba(15,31,58,0.3)' } }, [
+              t.image && h('div', { style: { height: 110, background: 'linear-gradient(135deg,#1f3c6b,#8aa9d3) center/cover', backgroundImage: `url(${t.image})` } }),
+              h('div', { style: { padding: 14 } }, [
+                h('div', { style: { fontSize: 10, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#284c85', fontWeight: 600 } }, t.tag_en),
+                h('h4',  { style: { fontWeight: 600, fontSize: 15, margin: '4px 0 6px' } }, t.title_en),
+                h('p',   { style: { fontSize: 13, color: '#1f3c6b', lineHeight: 1.5 } }, t.description_en),
+              ]),
+            ])
+          )
+        ),
+      ]);
+    };
+
+    // ---- Publications ---------------------------------------------------
+    const PubsPreview = ({ entry }) => {
+      const items = (get(entry, 'items', []) || []).slice().sort((a, b) => (b.year || 0) - (a.year || 0));
+      const byYear = {};
+      items.forEach(it => { (byYear[it.year] = byYear[it.year] || []).push(it); });
+      const years = Object.keys(byYear).sort((a, b) => b - a);
+      return previewShell([
+        h('h2', { style: { fontSize: 24, fontWeight: 600, borderBottom: '3px solid #284c85', display: 'inline-block', paddingBottom: 6 } }, 'Publications'),
+        years.map(y =>
+          h('div', { key: y, style: { marginTop: 18 } }, [
+            h('h3', { style: { color: '#1f3c6b', fontWeight: 600, fontSize: 18 } }, y),
+            h('ol', { style: { paddingLeft: 22, marginTop: 6 } },
+              byYear[y].map((it, i) =>
+                h('li', { key: i, style: { marginBottom: 8, lineHeight: 1.55, fontSize: 14 } }, [
+                  h('span', { dangerouslySetInnerHTML: { __html: richHTML(it.authors) } }),
+                  h('span', null, '. "' + (it.title || '') + '". '),
+                  h('em',   null, it.journal || ''),
+                  h('span', null, (it.volume ? ' ' + it.volume : '') + (it.pages ? ', ' + it.pages : '') + (' (' + (it.year || '') + ').')),
+                  it.doi && h('a', { href: 'https://doi.org/' + it.doi, target: '_blank', style: { marginLeft: 6, color: '#284c85' } }, '[DOI]'),
+                ])
+              )
+            ),
+          ])
+        ),
+      ]);
+    };
+
+    // ---- Members --------------------------------------------------------
+    const MembersPreview = ({ entry }) => {
+      const members = get(entry, 'members', []) || [];
+      const roleLabels = { pi: 'Principal Investigator', postdoc: 'Postdoctoral Researcher', student: 'Graduate Students', alumni: 'Alumni' };
+      const groups = {};
+      members.forEach(m => { (groups[m.role_key] = groups[m.role_key] || []).push(m); });
+      const order = ['pi', 'postdoc', 'student', 'alumni'];
+      return previewShell([
+        h('h2', { style: { fontSize: 24, fontWeight: 600, borderBottom: '3px solid #284c85', display: 'inline-block', paddingBottom: 6 } }, 'Members'),
+        order.filter(k => groups[k]).map(k =>
+          h('div', { key: k, style: { marginTop: 18 } }, [
+            h('h3', { style: { fontSize: 12, fontWeight: 600, color: '#284c85', letterSpacing: '0.1em', textTransform: 'uppercase' } }, roleLabels[k] || k),
+            h('div', {
+              style: {
+                marginTop: 8,
+                display: 'grid',
+                gridTemplateColumns: k === 'pi' || k === 'postdoc' ? '1fr' : 'repeat(auto-fit,minmax(180px,1fr))',
+                gap: 12,
+              },
+            },
+              groups[k].map((m, i) =>
+                h('div', { key: i, style: { background: '#fff', border: '1px solid #dbe5f2', borderRadius: 12, padding: 14, display: 'flex', gap: 14, alignItems: 'flex-start' } }, [
+                  h('div', { style: { width: 64, height: 64, borderRadius: '50%', background: m.photo ? `url(${m.photo}) center/cover` : 'linear-gradient(135deg,#1f3c6b,#8aa9d3)', color: '#fff', display: 'grid', placeItems: 'center', fontFamily: 'serif', fontSize: 24, flexShrink: 0 } }, !m.photo && (m.initial || 'M')),
+                  h('div', { style: { minWidth: 0 } }, [
+                    h('div', { style: { fontWeight: 600, fontSize: 15 } }, m.name_en),
+                    h('div', {
+                      style: { fontSize: 12, color: '#284c85', marginTop: 2 },
+                      dangerouslySetInnerHTML: { __html: m.role_en },
+                    }),
+                    m.bio_en && h('p', { style: { fontSize: 12, color: '#1f3c6b', marginTop: 6, lineHeight: 1.55 } }, m.bio_en),
+                  ]),
+                ])
+              )
+            ),
+          ])
+        ),
+      ]);
+    };
+
+    // Register all preview templates
+    CMS.registerPreviewTemplate('site',         SitePreview);
+    CMS.registerPreviewTemplate('news',         NewsPreview);
+    CMS.registerPreviewTemplate('research',     ResearchPreview);
+    CMS.registerPreviewTemplate('publications', PubsPreview);
+    CMS.registerPreviewTemplate('members',      MembersPreview);
+  </script>
+</body>
+</html>

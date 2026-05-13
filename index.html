@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#1f3c6b" />
+  <title>YOSHIO Lab | 吉尾研究室 — Molecular Mechatronics Group, NIMS</title>
+  <meta name="description" content="YOSHIO Lab (Molecular Mechatronics Group, NIMS) — Liquid-crystalline ion conductors, supramolecular self-assembly, and soft actuators for haptic devices." />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            academic: {
+              50:'#f0f4fa',100:'#dbe5f2',200:'#b6cae5',300:'#8aa9d3',
+              400:'#5a83bc',500:'#3a64a3',600:'#284c85',700:'#1f3c6b',
+              800:'#172d52',900:'#0f1f3a',950:'#08132a',
+            },
+            accent: { 500: '#c8a45e', 600: '#a8853f' },
+          },
+          fontFamily: {
+            sans:  ['Inter', 'Noto Sans JP', 'system-ui', 'sans-serif'],
+            jp:    ['Noto Sans JP', 'Inter', 'system-ui', 'sans-serif'],
+            serif: ['"Times New Roman"', 'serif'],
+          },
+          boxShadow: { soft: '0 10px 30px -10px rgba(15, 31, 58, 0.15)' },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { font-family: 'Inter','Noto Sans JP',system-ui,sans-serif; color: #0f1f3a; overflow-x: hidden; }
+    html[lang="ja"] body { font-family: 'Noto Sans JP','Inter',system-ui,sans-serif; }
+
+    .nav-glass {
+      background: rgba(255,255,255,0.72);
+      backdrop-filter: saturate(180%) blur(14px);
+      -webkit-backdrop-filter: saturate(180%) blur(14px);
+      border-bottom: 1px solid rgba(15,31,58,0.08);
+    }
+    .nav-glass.scrolled { background: rgba(255,255,255,0.92); box-shadow: 0 6px 20px -12px rgba(15,31,58,0.25); }
+
+    .hero-bg {
+      background-image:
+        linear-gradient(135deg, rgba(8,19,42,0.78) 0%, rgba(31,60,107,0.6) 50%, rgba(58,100,163,0.4) 100%),
+        url('https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=2000&q=80');
+      background-size: cover; background-position: center;
+    }
+
+    .section-title::after { content: ''; display: block; width: 52px; height: 3px; background: #284c85; margin-top: 10px; }
+    .section-title.center::after { margin-left: auto; margin-right: auto; }
+
+    .timeline { position: relative; padding-left: 1.75rem; border-left: 2px solid #dbe5f2; }
+    .timeline-item::before {
+      content: ''; position: absolute; left: -0.6rem; top: 0.4rem;
+      width: 0.8rem; height: 0.8rem; border-radius: 9999px;
+      background: #284c85; box-shadow: 0 0 0 4px #f0f4fa;
+    }
+
+    .research-card { transition: transform .35s ease, box-shadow .35s ease; }
+    .research-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -20px rgba(15,31,58,0.25); }
+
+    #mobile-menu { transition: max-height .35s ease, opacity .25s ease; max-height: 0; opacity: 0; overflow: hidden; }
+    #mobile-menu.open { max-height: 640px; opacity: 1; }
+
+    :focus-visible { outline: 2px solid #284c85; outline-offset: 2px; border-radius: 4px; }
+    .img-placeholder { background: linear-gradient(135deg,#1f3c6b 0%,#3a64a3 60%,#8aa9d3 100%); }
+
+    @keyframes floaty { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-6px) } }
+    .floaty { animation: floaty 6s ease-in-out infinite; }
+
+    @media (max-width: 640px) {
+      .hero-title { font-size: clamp(1.75rem, 7vw, 2.25rem) !important; line-height: 1.2 !important; }
+      .hero-lead  { font-size: 0.95rem !important; }
+      .timeline   { padding-left: 1.25rem; }
+    }
+
+    /* Loading skeleton */
+    .skeleton { background: linear-gradient(90deg, #eef2f8 25%, #f8fafc 50%, #eef2f8 75%); background-size: 200% 100%; animation: shimmer 1.2s infinite; border-radius: 6px; }
+    @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+  </style>
+</head>
+
+<body class="bg-white text-academic-900 antialiased">
+
+  <!-- ==================== NAVBAR ==================== -->
+  <header id="navbar" class="nav-glass fixed inset-x-0 top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+      <div class="flex items-center justify-between h-16 md:h-20">
+        <a href="#home" class="flex items-center gap-2 sm:gap-3 group min-w-0">
+          <div class="h-9 w-9 md:h-10 md:w-10 rounded-md bg-academic-700 text-white grid place-items-center font-serif font-bold text-lg shadow-soft shrink-0">Y</div>
+          <div class="leading-tight min-w-0">
+            <div id="brand-main" class="text-academic-900 font-semibold tracking-wide text-sm md:text-base truncate">YOSHIO Lab</div>
+            <div id="brand-sub"  class="text-academic-600 text-[10px] md:text-xs truncate">Molecular Mechatronics · NIMS</div>
+          </div>
+        </a>
+
+        <nav class="hidden lg:flex items-center gap-7 xl:gap-8">
+          <a href="#home"         class="text-sm font-medium text-academic-800 hover:text-academic-600 transition" data-i18n="nav_home">Home</a>
+          <a href="#news"         class="text-sm font-medium text-academic-800 hover:text-academic-600 transition" data-i18n="nav_news">News</a>
+          <a href="#research"     class="text-sm font-medium text-academic-800 hover:text-academic-600 transition" data-i18n="nav_research">Research</a>
+          <a href="#publications" class="text-sm font-medium text-academic-800 hover:text-academic-600 transition" data-i18n="nav_publications">Publications</a>
+          <a href="#members"      class="text-sm font-medium text-academic-800 hover:text-academic-600 transition" data-i18n="nav_members">Members</a>
+          <a href="#contact"      class="text-sm font-medium text-academic-800 hover:text-academic-600 transition" data-i18n="nav_contact">Contact</a>
+        </nav>
+
+        <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+          <div class="flex items-center bg-white/70 border border-academic-100 rounded-full p-0.5 shadow-soft">
+            <button id="lang-en" class="lang-btn px-2.5 sm:px-3 py-1 text-xs font-semibold rounded-full text-academic-800">EN</button>
+            <button id="lang-jp" class="lang-btn px-2.5 sm:px-3 py-1 text-xs font-semibold rounded-full text-academic-800">JP</button>
+          </div>
+          <button id="menu-toggle" class="lg:hidden inline-flex items-center justify-center h-10 w-10 rounded-md text-academic-800 hover:bg-academic-50 transition" aria-label="Toggle menu">
+            <svg id="icon-open"  class="w-6 h-6"        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>
+            <svg id="icon-close" class="w-6 h-6 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 6l12 12M18 6L6 18" /></svg>
+          </button>
+        </div>
+      </div>
+
+      <div id="mobile-menu" class="lg:hidden">
+        <nav class="flex flex-col py-4 gap-1 border-t border-academic-100">
+          <a href="#home"         class="mobile-link px-2 py-2 rounded-md text-academic-800 hover:bg-academic-50" data-i18n="nav_home">Home</a>
+          <a href="#news"         class="mobile-link px-2 py-2 rounded-md text-academic-800 hover:bg-academic-50" data-i18n="nav_news">News</a>
+          <a href="#research"     class="mobile-link px-2 py-2 rounded-md text-academic-800 hover:bg-academic-50" data-i18n="nav_research">Research</a>
+          <a href="#publications" class="mobile-link px-2 py-2 rounded-md text-academic-800 hover:bg-academic-50" data-i18n="nav_publications">Publications</a>
+          <a href="#members"      class="mobile-link px-2 py-2 rounded-md text-academic-800 hover:bg-academic-50" data-i18n="nav_members">Members</a>
+          <a href="#contact"      class="mobile-link px-2 py-2 rounded-md text-academic-800 hover:bg-academic-50" data-i18n="nav_contact">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== HERO ==================== -->
+  <section id="home" class="hero-bg relative pt-28 sm:pt-32 md:pt-40 pb-20 sm:pb-24 md:pb-36 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+      <div class="max-w-3xl">
+        <p id="hero-kicker" class="uppercase tracking-[0.22em] sm:tracking-[0.25em] text-academic-100/90 text-[11px] sm:text-xs md:text-sm mb-3 sm:mb-4"></p>
+        <h1 id="hero-title" class="hero-title font-semibold text-3xl sm:text-5xl md:text-6xl leading-tight mb-5 sm:mb-6"></h1>
+        <p id="hero-lead" class="hero-lead text-academic-50/90 text-[15px] sm:text-base md:text-lg leading-relaxed mb-7 sm:mb-8 max-w-2xl"></p>
+        <div class="flex flex-wrap gap-3">
+          <a href="#research" class="inline-flex items-center gap-2 bg-white text-academic-800 px-5 py-3 rounded-md font-semibold shadow-soft hover:bg-academic-50 transition">
+            <span id="hero-cta-research">Explore Research</span>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#contact" id="hero-cta-contact" class="inline-flex items-center gap-2 border border-white/60 text-white px-5 py-3 rounded-md font-semibold hover:bg-white/10 transition">Contact Us</a>
+        </div>
+      </div>
+    </div>
+    <div class="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/70 floaty hidden md:block">
+      <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+    </div>
+  </section>
+
+  <!-- ==================== ABOUT ==================== -->
+  <section class="bg-academic-50/60 border-y border-academic-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-12 sm:py-14 md:py-20 grid md:grid-cols-3 gap-8 sm:gap-10 md:gap-14">
+      <div class="md:col-span-1">
+        <h2 id="about-title" class="section-title text-2xl md:text-3xl font-semibold text-academic-900"></h2>
+      </div>
+      <div class="md:col-span-2 space-y-5 text-academic-800 leading-relaxed text-[15px] md:text-base">
+        <p id="about-p1"></p>
+        <p id="about-p2"></p>
+        <div id="stats-grid" class="grid grid-cols-3 gap-4 pt-4"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== NEWS ==================== -->
+  <section id="news" class="py-14 sm:py-16 md:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+      <div class="flex items-end justify-between mb-8 sm:mb-10 md:mb-14 flex-wrap gap-4">
+        <h2 class="section-title text-2xl md:text-3xl font-semibold" data-i18n="news_title">News</h2>
+        <a href="https://samurai.nims.go.jp/profiles/yoshio_masafumi/publications" target="_blank" rel="noopener" class="text-sm font-semibold text-academic-700 hover:text-academic-500 transition" data-i18n="news_all">Latest publications →</a>
+      </div>
+      <div id="news-timeline" class="timeline space-y-8"></div>
+    </div>
+  </section>
+
+  <!-- ==================== RESEARCH ==================== -->
+  <section id="research" class="py-14 sm:py-16 md:py-24 bg-academic-50/50 border-y border-academic-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+      <div class="max-w-2xl mx-auto text-center mb-10 sm:mb-12 md:mb-16">
+        <h2 class="section-title center text-2xl md:text-3xl font-semibold inline-block" data-i18n="research_title">Research</h2>
+        <p id="research-lead" class="mt-5 sm:mt-6 text-academic-700 leading-relaxed text-[15px] sm:text-base"></p>
+      </div>
+      <div id="research-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 md:gap-8"></div>
+    </div>
+  </section>
+
+  <!-- ==================== PUBLICATIONS ==================== -->
+  <section id="publications" class="py-14 sm:py-16 md:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+      <div class="flex items-end justify-between mb-8 sm:mb-10 md:mb-14 flex-wrap gap-4">
+        <h2 class="section-title text-2xl md:text-3xl font-semibold" data-i18n="pubs_title">Selected Publications</h2>
+        <a href="https://scholar.google.com/scholar?hl=ja&q=%22YOSHIO%2C+Masafumi%22" target="_blank" rel="noopener" class="text-sm font-semibold text-academic-700 hover:text-academic-500 transition" data-i18n="pubs_all">Full list (Google Scholar / NIMS SAMURAI) →</a>
+      </div>
+      <div id="pubs-tabs" class="flex flex-wrap gap-2 mb-6 sm:mb-8"></div>
+      <div id="pubs-content" class="space-y-10"></div>
+    </div>
+  </section>
+
+  <!-- ==================== MEMBERS ==================== -->
+  <section id="members" class="py-14 sm:py-16 md:py-24 bg-academic-50/50 border-y border-academic-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+      <div class="mb-10 sm:mb-12 md:mb-14">
+        <h2 class="section-title text-2xl md:text-3xl font-semibold" data-i18n="members_title">Members</h2>
+      </div>
+      <div id="members-pi"      class="mb-10"></div>
+      <div id="members-postdoc" class="mb-10"></div>
+      <div id="members-student" class="mb-10"></div>
+      <div id="members-alumni"  class="mb-10"></div>
+      <h3 id="members-join-title" class="text-sm font-semibold tracking-wider uppercase text-academic-600 mb-4">Join Us</h3>
+      <div id="join-cards" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6"></div>
+    </div>
+  </section>
+
+  <!-- ==================== CONTACT ==================== -->
+  <section id="contact" class="py-14 sm:py-16 md:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+      <div class="mb-8 sm:mb-10 md:mb-14">
+        <h2 class="section-title text-2xl md:text-3xl font-semibold" data-i18n="contact_title">Contact &amp; Access</h2>
+      </div>
+      <div class="grid lg:grid-cols-2 gap-8 md:gap-12 items-start">
+        <div class="space-y-6 text-academic-800 text-[15px]">
+          <div>
+            <div class="text-xs font-semibold tracking-wider uppercase text-academic-600" data-i18n="contact_addr_label">Address</div>
+            <p id="contact-address" class="mt-1"></p>
+          </div>
+          <div>
+            <div class="text-xs font-semibold tracking-wider uppercase text-academic-600" data-i18n="contact_email_label">Email</div>
+            <p class="mt-1"><a id="contact-email-link" class="text-academic-700 hover:text-academic-500 break-all"></a></p>
+          </div>
+          <div>
+            <div class="text-xs font-semibold tracking-wider uppercase text-academic-600" data-i18n="contact_tel_label">Phone</div>
+            <p id="contact-phone" class="mt-1"></p>
+          </div>
+          <div>
+            <div class="text-xs font-semibold tracking-wider uppercase text-academic-600" data-i18n="contact_links_label">External Links</div>
+            <ul id="contact-links" class="mt-2 space-y-1.5"></ul>
+          </div>
+          <div class="pt-2"><p id="contact-join" class="text-academic-700"></p></div>
+        </div>
+
+        <div class="rounded-xl overflow-hidden border border-academic-100 shadow-soft bg-academic-50 aspect-[4/3] relative">
+          <iframe id="contact-map" title="Map" class="absolute inset-0 w-full h-full" style="border:0;" loading="lazy"></iframe>
+          <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1.5 rounded-md text-xs text-academic-700 shadow-soft max-w-[80%]" data-i18n="contact_map_caption">
+            NIMS Sengen, Tsukuba · Map © OpenStreetMap
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="bg-academic-900 text-academic-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-12 grid md:grid-cols-3 gap-8 sm:gap-10">
+      <div>
+        <div class="flex items-center gap-3">
+          <div class="h-10 w-10 rounded-md bg-white/10 grid place-items-center font-serif font-bold text-lg">Y</div>
+          <div>
+            <div id="footer-brand" class="font-semibold">YOSHIO Lab</div>
+            <div id="footer-brand-sub" class="text-xs text-academic-300">Molecular Mechatronics · NIMS</div>
+          </div>
+        </div>
+        <p id="footer-about" class="mt-4 text-sm text-academic-200/90 leading-relaxed"></p>
+      </div>
+      <div>
+        <div class="text-xs font-semibold tracking-wider uppercase text-academic-300 mb-3" data-i18n="footer_nav">Navigate</div>
+        <ul class="space-y-2 text-sm">
+          <li><a href="#home"         class="hover:text-white" data-i18n="nav_home">Home</a></li>
+          <li><a href="#news"         class="hover:text-white" data-i18n="nav_news">News</a></li>
+          <li><a href="#research"     class="hover:text-white" data-i18n="nav_research">Research</a></li>
+          <li><a href="#publications" class="hover:text-white" data-i18n="nav_publications">Publications</a></li>
+          <li><a href="#members"      class="hover:text-white" data-i18n="nav_members">Members</a></li>
+          <li><a href="#contact"      class="hover:text-white" data-i18n="nav_contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="text-xs font-semibold tracking-wider uppercase text-academic-300 mb-3" data-i18n="footer_contact">Contact</div>
+        <p id="footer-address" class="text-sm text-academic-200/90 leading-relaxed"></p>
+        <p class="text-sm mt-3"><a id="footer-email" class="hover:text-white break-all"></a></p>
+      </div>
+    </div>
+    <div class="border-t border-white/10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-5 text-xs text-academic-300 flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
+        <div>© <span id="year"></span> YOSHIO Lab · Molecular Mechatronics Group, NIMS</div>
+        <div data-i18n="footer_credit">Designed with care · Built with HTML &amp; Tailwind CSS</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== SCRIPTS ==================== -->
+  <script>
+  (function () {
+    /* ---------- Static UI labels (nav, buttons, headings) ---------- */
+    const STATIC_I18N = {
+      en: {
+        nav_home:'Home', nav_news:'News', nav_research:'Research',
+        nav_publications:'Publications', nav_members:'Members', nav_contact:'Contact',
+        news_title:'News', news_all:'Latest publications →',
+        research_title:'Research',
+        pubs_title:'Selected Publications', pubs_all:'Full list (Google Scholar / NIMS SAMURAI) →',
+        members_title:'Members',
+        contact_title:'Contact & Access',
+        contact_addr_label:'Address', contact_email_label:'Email',
+        contact_tel_label:'Phone', contact_links_label:'External Links',
+        contact_map_caption:'NIMS Sengen, Tsukuba · Map © OpenStreetMap',
+        footer_nav:'Navigate', footer_contact:'Contact',
+        footer_credit:'Designed with care · Built with HTML & Tailwind CSS',
+        members_pi:'Principal Investigator',
+        members_postdoc:'Postdoctoral Researcher',
+        members_student:'Graduate Students',
+        members_alumni:'Alumni',
+        members_join:'Join Us',
+      },
+      ja: {
+        nav_home:'ホーム', nav_news:'ニュース', nav_research:'研究',
+        nav_publications:'論文', nav_members:'メンバー', nav_contact:'連絡先',
+        news_title:'ニュース', news_all:'論文リストはこちら →',
+        research_title:'研究',
+        pubs_title:'主な論文', pubs_all:'論文リスト全文（Google Scholar / NIMS SAMURAI）→',
+        members_title:'メンバー',
+        contact_title:'連絡先・アクセス',
+        contact_addr_label:'所在地', contact_email_label:'メール',
+        contact_tel_label:'電話', contact_links_label:'関連リンク',
+        contact_map_caption:'NIMS 千現地区（つくば市）· 地図 © OpenStreetMap',
+        footer_nav:'ナビゲーション', footer_contact:'連絡先',
+        footer_credit:'Designed with care · HTML & Tailwind CSS',
+        members_pi:'主宰者',
+        members_postdoc:'博士研究員',
+        members_student:'大学院生',
+        members_alumni:'卒業生',
+        members_join:'参加希望の方へ',
+      },
+    };
+
+    /* ---------- State ---------- */
+    let DATA = { site:null, news:null, research:null, publications:null, members:null };
+    let currentLang = localStorage.getItem('yoshio_lang') || 'en';
+
+    /* ---------- Helpers ---------- */
+    const $  = (sel, root=document) => root.querySelector(sel);
+    const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+    const L  = (obj, key) => obj ? (obj[key + '_' + currentLang] ?? obj[key + '_en'] ?? '') : '';
+    const esc = s => String(s ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+    const richHTML = s => String(s ?? '').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+
+    async function fetchYAML(path) {
+      try {
+        const res = await fetch(path, { cache: 'no-store' });
+        if (!res.ok) throw new Error(path + ' → HTTP ' + res.status);
+        return jsyaml.load(await res.text());
+      } catch (e) {
+        console.warn('[YOSHIO Lab] Failed to load', path, e.message);
+        return null;
+      }
+    }
+
+    /* ---------- Renderers ---------- */
+    function renderBrand() {
+      const s = DATA.site; if (!s) return;
+      $('#brand-main').textContent     = L(s.brand,'') || (s.brand && s.brand[currentLang]) || '';
+      $('#brand-sub').textContent      = (s.brand_sub && s.brand_sub[currentLang]) || '';
+      $('#footer-brand').textContent     = (s.brand && s.brand[currentLang]) || '';
+      $('#footer-brand-sub').textContent = (s.brand_sub && s.brand_sub[currentLang]) || '';
+    }
+
+    function renderHero() {
+      const s = DATA.site; if (!s || !s.hero) return;
+      $('#hero-kicker').innerHTML = L(s.hero, 'kicker');
+      $('#hero-title').innerHTML  = L(s.hero, 'title');
+      $('#hero-lead').innerHTML   = L(s.hero, 'lead');
+      $('#hero-cta-research').textContent = L(s.hero, 'cta_research');
+      $('#hero-cta-contact').textContent  = L(s.hero, 'cta_contact');
+      if (s.hero.background_image) {
+        document.querySelector('.hero-bg').style.backgroundImage =
+          `linear-gradient(135deg, rgba(8,19,42,0.78) 0%, rgba(31,60,107,0.6) 50%, rgba(58,100,163,0.4) 100%), url('${s.hero.background_image}')`;
+      }
+    }
+
+    function renderAbout() {
+      const s = DATA.site; if (!s) return;
+      $('#about-title').textContent = L(s.about, 'title');
+      $('#about-p1').textContent    = L(s.about, 'p1');
+      $('#about-p2').textContent    = L(s.about, 'p2');
+      const stats = s.stats || [];
+      $('#stats-grid').innerHTML = stats.map(st => `
+        <div class="text-center">
+          <div class="text-2xl sm:text-3xl font-bold text-academic-700">${esc(st.value)}</div>
+          <div class="text-[10px] sm:text-xs uppercase tracking-wider text-academic-600 mt-1">${esc(L(st, 'label'))}</div>
+        </div>`).join('');
+    }
+
+    function renderNews() {
+      const items = (DATA.news && DATA.news.items) || [];
+      $('#news-timeline').innerHTML = items.map(it => `
+        <div class="timeline-item relative">
+          <div class="text-xs font-semibold text-academic-600 uppercase tracking-wider">${esc(it.date)}</div>
+          <h3 class="text-lg font-semibold mt-1">${esc(L(it,'title'))}</h3>
+          <p class="text-academic-700 mt-1 text-[15px]">
+            ${esc(L(it,'description'))}
+            ${it.link ? ` <a href="${esc(it.link)}" target="_blank" rel="noopener" class="text-academic-600 hover:text-academic-500 underline-offset-2 hover:underline">[link]</a>` : ''}
+          </p>
+        </div>`).join('') || '<p class="text-academic-500 italic">No news yet.</p>';
+    }
+
+    function renderResearch() {
+      const r = DATA.research; if (!r) return;
+      $('#research-lead').textContent = L(r, 'lead');
+      const themes = r.themes || [];
+      $('#research-grid').innerHTML = themes.map(t => `
+        <article class="research-card bg-white rounded-xl overflow-hidden shadow-soft border border-academic-100">
+          <div class="h-40 sm:h-44 img-placeholder relative">
+            ${t.image ? `<img src="${esc(t.image)}" alt="" class="w-full h-full object-cover opacity-90" onerror="this.style.display='none'"/>` : ''}
+          </div>
+          <div class="p-5 sm:p-6">
+            <div class="text-xs font-semibold tracking-wider text-academic-600 uppercase">${esc(L(t,'tag'))}</div>
+            <h3 class="text-lg font-semibold mt-1">${esc(L(t,'title'))}</h3>
+            <p class="text-academic-700 mt-2 text-sm leading-relaxed">${esc(L(t,'description'))}</p>
+          </div>
+        </article>`).join('');
+    }
+
+    function renderPublications() {
+      const items = (DATA.publications && DATA.publications.items) || [];
+      const byYear = {};
+      items.forEach(it => { (byYear[it.year] = byYear[it.year] || []).push(it); });
+      const years = Object.keys(byYear).sort((a, b) => Number(b) - Number(a));
+
+      $('#pubs-tabs').innerHTML = years.map(y => `
+        <button class="pub-tab px-3 sm:px-4 py-1.5 rounded-full text-sm font-semibold border border-academic-200 hover:bg-academic-50 transition" data-year="${y}">${y}</button>
+      `).join('');
+
+      $('#pubs-content').innerHTML = years.map(y => `
+        <div class="pub-year" data-year="${y}">
+          <h3 class="text-xl font-semibold text-academic-700 mb-4">${y}</h3>
+          <ol class="space-y-4 list-decimal list-inside marker:text-academic-400">
+            ${byYear[y].map(it => `
+              <li class="pl-2">
+                ${richHTML(esc(it.authors).replace(/&lt;|&gt;/g,''))} . "${esc(it.title)}."
+                <em class="text-academic-700">${esc(it.journal)}</em>
+                ${it.volume ? ` <strong>${esc(it.volume)}</strong>` : ''}${it.pages ? `, ${esc(it.pages)}` : ''}
+                (${esc(it.year)}).
+                ${it.doi ? ` <a href="https://doi.org/${esc(it.doi)}" target="_blank" rel="noopener" class="text-academic-600 hover:text-academic-500 text-sm">[DOI]</a>` : ''}
+              </li>`).join('')}
+          </ol>
+        </div>`).join('');
+
+      // Wire up tab click
+      $$('.pub-tab').forEach(btn => btn.addEventListener('click', () => setPubYear(btn.dataset.year)));
+      if (years.length) setPubYear(years[0]);
+    }
+
+    function setPubYear(year) {
+      $$('.pub-tab').forEach(t => {
+        const active = t.dataset.year === year;
+        t.classList.toggle('bg-academic-700', active);
+        t.classList.toggle('text-white', active);
+        t.classList.toggle('border-academic-700', active);
+      });
+      $$('.pub-year').forEach(g => g.classList.toggle('hidden', g.dataset.year !== year));
+    }
+
+    function memberCard(m, large) {
+      const photo = m.photo
+        ? `<div class="${large ? 'w-28 h-28 sm:w-32 sm:h-32' : 'w-24 h-24'} rounded-full shadow-soft shrink-0 bg-cover bg-center" style="background-image:url('${esc(m.photo)}')"></div>`
+        : `<div class="${large ? 'w-28 h-28 sm:w-32 sm:h-32 text-3xl sm:text-4xl' : 'w-24 h-24 text-2xl'} rounded-full img-placeholder text-white grid place-items-center font-serif shadow-soft shrink-0">${esc(m.initial || 'M')}</div>`;
+      const linksHTML = (m.links || []).map((lnk,i,arr) =>
+        `<a href="${esc(lnk.url)}" target="_blank" rel="noopener" class="hover:text-academic-500">${esc(lnk.label)}</a>${i < arr.length-1 ? '<span class="text-academic-200">|</span>' : ''}`
+      ).join(' ');
+
+      if (large) {
+        return `
+          <div class="bg-white rounded-xl border border-academic-100 shadow-soft p-5 sm:p-6 flex flex-col sm:flex-row items-center sm:items-start gap-5 sm:gap-6">
+            ${photo}
+            <div class="text-center sm:text-left min-w-0">
+              <h4 class="text-xl font-semibold">${esc(L(m,'name'))}</h4>
+              <p class="text-academic-600 text-sm mt-1">${L(m,'role')}</p>
+              ${L(m,'bio') ? `<p class="text-academic-800 text-[15px] mt-3 max-w-2xl leading-relaxed">${esc(L(m,'bio'))}</p>` : ''}
+              ${linksHTML ? `<div class="flex flex-wrap justify-center sm:justify-start gap-x-3 gap-y-1 mt-4 text-academic-700 text-sm">${linksHTML}</div>` : ''}
+            </div>
+          </div>`;
+      } else {
+        return `
+          <div class="bg-white rounded-xl border border-academic-100 shadow-soft p-5 text-center">
+            <div class="mx-auto inline-block">${photo}</div>
+            <h4 class="mt-3 font-semibold text-academic-900">${esc(L(m,'name'))}</h4>
+            <p class="text-xs text-academic-600 mt-1">${L(m,'role')}</p>
+          </div>`;
+      }
+    }
+
+    function renderMembers() {
+      const m = DATA.members; if (!m) return;
+      const members = m.members || [];
+      const labels = STATIC_I18N[currentLang];
+      const groups = { pi: [], postdoc: [], student: [], alumni: [] };
+      members.forEach(x => { if (groups[x.role_key]) groups[x.role_key].push(x); });
+
+      const sections = [
+        { key: 'pi',      title: labels.members_pi,      large: true,  el: '#members-pi'      },
+        { key: 'postdoc', title: labels.members_postdoc, large: true,  el: '#members-postdoc' },
+        { key: 'student', title: labels.members_student, large: false, el: '#members-student' },
+        { key: 'alumni',  title: labels.members_alumni,  large: false, el: '#members-alumni'  },
+      ];
+
+      sections.forEach(s => {
+        const list = groups[s.key];
+        if (!list.length) { $(s.el).innerHTML = ''; return; }
+        const heading = `<h3 class="text-sm font-semibold tracking-wider uppercase text-academic-600 mb-4">${esc(s.title)}</h3>`;
+        const body = s.large
+          ? list.map(x => memberCard(x, true)).join('')
+          : `<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5 sm:gap-6">${list.map(x => memberCard(x, false)).join('')}</div>`;
+        $(s.el).innerHTML = heading + body;
+      });
+
+      // Join cards
+      const j = m.join || {};
+      $('#members-join-title').textContent = labels.members_join;
+      const card = (tag, title, desc) => `
+        <div class="bg-white rounded-xl border border-dashed border-academic-300 p-5 sm:p-6">
+          <div class="text-xs font-semibold tracking-wider text-academic-600 uppercase">${esc(tag)}</div>
+          <h4 class="mt-1 font-semibold text-academic-900">${esc(title)}</h4>
+          <p class="text-academic-700 text-sm mt-2">${esc(desc)}</p>
+        </div>`;
+      $('#join-cards').innerHTML =
+        card(L(j,'phd_tag'),      L(j,'phd_title'),      L(j,'phd_desc')) +
+        card(L(j,'postdoc_tag'),  L(j,'postdoc_title'),  L(j,'postdoc_desc')) +
+        card(L(j,'visiting_tag'), L(j,'visiting_title'), L(j,'visiting_desc'));
+    }
+
+    function renderContact() {
+      const c = DATA.site && DATA.site.contact; if (!c) return;
+      $('#contact-address').innerHTML = L(c, 'address');
+      $('#contact-email-link').textContent = c.email || '';
+      $('#contact-email-link').href = 'mailto:' + (c.email || '');
+      $('#contact-phone').textContent = c.phone || '';
+      $('#contact-join').textContent = L(c, 'join');
+
+      const links = c.external_links || [];
+      $('#contact-links').innerHTML = links.map(l =>
+        `<li><a href="${esc(l.url)}" target="_blank" rel="noopener" class="text-academic-700 hover:text-academic-500">→ ${esc(L(l, 'label'))}</a></li>`
+      ).join('');
+
+      // Map iframe — small bbox around the configured lat/lng
+      const lat = parseFloat(c.map_lat) || 36.0686;
+      const lng = parseFloat(c.map_lng) || 140.1183;
+      const d = 0.008;
+      $('#contact-map').src =
+        `https://www.openstreetmap.org/export/embed.html?bbox=${lng - d}%2C${lat - d}%2C${lng + d}%2C${lat + d}&layer=mapnik&marker=${lat}%2C${lng}`;
+
+      // Footer
+      $('#footer-address').innerHTML = L(c, 'address');
+      $('#footer-email').textContent = c.email || '';
+      $('#footer-email').href = 'mailto:' + (c.email || '');
+    }
+
+    function applyStaticLabels() {
+      const dict = STATIC_I18N[currentLang] || STATIC_I18N.en;
+      $$('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[key] != null) el.textContent = dict[key];
+      });
+      document.documentElement.lang = currentLang === 'ja' ? 'ja' : 'en';
+      $('#footer-about').textContent = currentLang === 'ja'
+        ? 'ナノ構造化液晶とイオン性高分子電解質の設計を通じて、ソフトアクチュエータ・触覚デバイス・エネルギー材料の革新を進めています。'
+        : 'Designing nanostructured liquid crystals and ionic polymer electrolytes for soft actuators, haptic devices, and energy materials.';
+    }
+
+    function applyLang(lang) {
+      currentLang = lang;
+      localStorage.setItem('yoshio_lang', lang);
+
+      const enBtn = $('#lang-en'), jpBtn = $('#lang-jp');
+      [enBtn,jpBtn].forEach(b => { b.classList.remove('bg-academic-700','text-white'); b.classList.add('text-academic-800'); });
+      (lang === 'ja' ? jpBtn : enBtn).classList.add('bg-academic-700','text-white');
+      (lang === 'ja' ? jpBtn : enBtn).classList.remove('text-academic-800');
+
+      applyStaticLabels();
+      renderBrand();
+      renderHero();
+      renderAbout();
+      renderNews();
+      renderResearch();
+      renderPublications();
+      renderMembers();
+      renderContact();
+    }
+
+    /* ---------- Bootstrap ---------- */
+    async function init() {
+      // Load all YAML in parallel
+      const [site, news, research, publications, members] = await Promise.all([
+        fetchYAML('_data/site.yml'),
+        fetchYAML('_data/news.yml'),
+        fetchYAML('_data/research.yml'),
+        fetchYAML('_data/publications.yml'),
+        fetchYAML('_data/members.yml'),
+      ]);
+      DATA = { site, news, research, publications, members };
+      applyLang(currentLang);
+    }
+
+    /* ---------- UI events ---------- */
+    $('#lang-en').addEventListener('click', () => applyLang('en'));
+    $('#lang-jp').addEventListener('click', () => applyLang('ja'));
+
+    const menuBtn = $('#menu-toggle'), menu = $('#mobile-menu'),
+          iconOpen = $('#icon-open'), iconClose = $('#icon-close');
+    menuBtn.addEventListener('click', () => {
+      const isOpen = menu.classList.toggle('open');
+      iconOpen.classList.toggle('hidden', isOpen);
+      iconClose.classList.toggle('hidden', !isOpen);
+    });
+    $$('.mobile-link').forEach(a => a.addEventListener('click', () => {
+      menu.classList.remove('open');
+      iconOpen.classList.remove('hidden');
+      iconClose.classList.add('hidden');
+    }));
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 1024 && menu.classList.contains('open')) {
+        menu.classList.remove('open');
+        iconOpen.classList.remove('hidden');
+        iconClose.classList.add('hidden');
+      }
+    });
+
+    const navbar = $('#navbar');
+    const onScroll = () => navbar.classList.toggle('scrolled', window.scrollY > 8);
+    document.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    $('#year').textContent = new Date().getFullYear();
+
+    init();
+  })();
+  </script>
+</body>
+</html>

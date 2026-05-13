@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#6c232c" />
+  <title>YOSHIO Lab — Color Variant: Burgundy / 酒紅</title>
+  <meta name="description" content="YOSHIO Lab (Molecular Mechatronics Group, NIMS) — Liquid-crystalline ion conductors, supramolecular self-assembly, and soft actuators for haptic devices." />
+
+  <!-- Tailwind via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            academic: {
+              50:  '#fbf2f3', 100: '#f4dadd', 200: '#e7b4ba', 300: '#d4848d',
+              400: '#bd5b66', 500: '#a23d49', 600: '#852d37', 700: '#6c232c',
+              800: '#521a22', 900: '#361016', 950: '#1d080b',
+            },
+            accent: { 500: '#c8a45e', 600: '#a8853f' },
+          },
+          fontFamily: {
+            sans:  ['Inter', 'Noto Sans JP', 'system-ui', 'sans-serif'],
+            jp:    ['Noto Sans JP', 'Inter', 'system-ui', 'sans-serif'],
+            serif: ['"Times New Roman"', 'serif'],
+          },
+          boxShadow: { soft: '0 10px 30px -10px rgba(54, 16, 22, 0.15)' },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { font-family: 'Inter', 'Noto Sans JP', system-ui, sans-serif; color: #361016; overflow-x: hidden; }
+    html[lang="ja"] body { font-family: 'Noto Sans JP', 'Inter', system-ui, sans-serif; }
+
+    /* Glassmorphism navbar */
+    .nav-glass {
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: saturate(180%) blur(14px);
+      -webkit-backdrop-filter: saturate(180%) blur(14px);
+      border-bottom: 1px solid rgba(54, 16, 22, 0.08);
+    }
+    .nav-glass.scrolled {
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: 0 6px 20px -12px rgba(54, 16, 22, 0.25);
+    }
+
+    /* Hero */
+    .hero-bg {
+      background-image:
+        linear-gradient(135deg, rgba(29, 8, 11, 0.78) 0%, rgba(108, 35, 44, 0.6) 50%, rgba(162, 61, 73, 0.4) 100%),
+        url('https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=2000&q=80');
+      background-size: cover;
+      background-position: center;
+    }
+
+    /* Section title */
+    .section-title::after {
+      content: ''; display: block; width: 52px; height: 3px;
+      background: #852d37; margin-top: 10px;
+    }
+    .section-title.center::after { margin-left: auto; margin-right: auto; }
+
+    /* Timeline */
+    .timeline { position: relative; padding-left: 1.75rem; border-left: 2px solid #f4dadd; }
+    .timeline-item::before {
+      content: ''; position: absolute; left: -0.6rem; top: 0.4rem;
+      width: 0.8rem; height: 0.8rem; border-radius: 9999px;
+      background: #852d37; box-shadow: 0 0 0 4px #fbf2f3;
+    }
+
+    /* Card hover */
+    .research-card { transition: transform .35s ease, box-shadow .35s ease; }
+    .research-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -20px rgba(15,31,58,0.25); }
+
+    /* Mobile menu */
+    #mobile-menu { transition: max-height .35s ease, opacity .25s ease; max-height: 0; opacity: 0; overflow: hidden; }
+    #mobile-menu.open { max-height: 640px; opacity: 1; }
+
+    :focus-visible { outline: 2px solid #852d37; outline-offset: 2px; border-radius: 4px; }
+
+    .img-placeholder { background: linear-gradient(135deg, #6c232c 0%, #a23d49 60%, #d4848d 100%); }
+
+    @keyframes floaty { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-6px) } }
+    .floaty { animation: floaty 6s ease-in-out infinite; }
+
+    /* Responsive helpers */
+    @media (max-width: 640px) {
+      .hero-title { font-size: clamp(1.75rem, 7vw, 2.25rem) !important; line-height: 1.2 !important; }
+      .hero-lead  { font-size: 0.95rem !important; }
+      .timeline   { padding-left: 1.25rem; }
+    }
+  </style>
+</head>
+
+<body class="bg-white text-academic-900 antialiased">
+
+  <!-- ==================== NAVBAR ==================== -->
+  <header id="navbar" class="nav-glass fixed inset-x-0 top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+      <div class="flex items-center justify-between h-16 md:h-20">
+        <!-- Logo -->
+        <a href="#home" class="flex items-center gap-2 sm:gap-3 group min-w-0">
+          <div class="h-9 w-9 md:h-10 md:w-10 rounded-md bg-academic-700 text-white grid place-items-center font-serif font-bold text-lg shadow-soft shrink-0">Y</div>
+          <div class="leading-tight min-w-0">
+            <div class="text-academic-900 font-semibold tracking-wide text-sm md:text-base truncate" data-i18n="brand">YOSHIO Lab</div>
+            <div class="text-academic-600 text-[10px] md:text-xs truncate" data-i18n="brand_sub">Molecular Mechatronics · NIMS</div>
+          </div>
+        </a>
+
+        <!-- Desktop nav -->
+        <nav class="hidden lg:flex items-center gap-7 xl:gap-8">
+          <a href="#home"         class="text-sm font-medium text-academic-800 hover:text-academic-600 transition" data-i18n="nav_home">Home</a>
+          <a href="#news"         class="text-sm font-medium text-academic-800 hover:text-academic-600 transition" data-i18n="nav_news">News</a>
+          <a href="#research"     class="text-sm font-medium text-academic-800 hover:text-academic-600 transition" data-i18n="nav_research">Research</a>
+          <a href="#publications" class="text-sm font-medium text-academic-800 hover:text-academic-600 transition" data-i18n="nav_publications">Publications</a>
+          <a href="#members"      class="text-sm font-medium text-academic-800 hover:text-academic-600 transition" data-i18n="nav_members">Members</a>
+          <a href="#contact"      class="text-sm font-medium text-academic-800 hover:text-academic-600 transition" data-i18n="nav_contact">Contact</a>
+        </nav>
+
+        <!-- Right controls -->
+        <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+          <div class="flex items-center bg-white/70 border border-academic-100 rounded-full p-0.5 shadow-soft">
+            <button id="lang-en" class="lang-btn px-2.5 sm:px-3 py-1 text-xs font-semibold rounded-full text-academic-800">EN</button>
+            <button id="lang-jp" class="lang-btn px-2.5 sm:px-3 py-1 text-xs font-semibold rounded-full text-academic-800">JP</button>
+          </div>
+
+          <button id="menu-toggle" class="lg:hidden inline-flex items-center justify-center h-10 w-10 rounded-md text-academic-800 hover:bg-academic-50 transition" aria-label="Toggle menu">
+            <svg id="icon-open"  class="w-6 h-6"        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>
+            <svg id="icon-close" class="w-6 h-6 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 6l12 12M18 6L6 18" /></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile nav -->
+      <div id="mobile-menu" class="lg:hidden">
+        <nav class="flex flex-col py-4 gap-1 border-t border-academic-100">
+          <a href="#home"         class="mobile-link px-2 py-2 rounded-md text-academic-800 hover:bg-academic-50" data-i18n="nav_home">Home</a>
+          <a href="#news"         class="mobile-link px-2 py-2 rounded-md text-academic-800 hover:bg-academic-50" data-i18n="nav_news">News</a>
+          <a href="#research"     class="mobile-link px-2 py-2 rounded-md text-academic-800 hover:bg-academic-50" data-i18n="nav_research">Research</a>
+          <a href="#publications" class="mobile-link px-2 py-2 rounded-md text-academic-800 hover:bg-academic-50" data-i18n="nav_publications">Publications</a>
+          <a href="#members"      class="mobile-link px-2 py-2 rounded-md text-academic-800 hover:bg-academic-50" data-i18n="nav_members">Members</a>
+          <a href="#contact"      class="mobile-link px-2 py-2 rounded-md text-academic-800 hover:bg-academic-50" data-i18n="nav_contact">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== HERO ==================== -->
+  <section id="home" class="hero-bg relative pt-28 sm:pt-32 md:pt-40 pb-20 sm:pb-24 md:pb-36 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+      <div class="max-w-3xl">
+        <p class="uppercase tracking-[0.22em] sm:tracking-[0.25em] text-academic-100/90 text-[11px] sm:text-xs md:text-sm mb-3 sm:mb-4" data-i18n="hero_kicker">
+          Molecular Mechatronics Group · NIMS / Hokkaido Univ.
+        </p>
+        <h1 class="hero-title font-semibold text-3xl sm:text-5xl md:text-6xl leading-tight mb-5 sm:mb-6" data-i18n="hero_title">
+          Designing nanostructured liquid crystals<br/>for next-generation soft actuators.
+        </h1>
+        <p class="hero-lead text-academic-50/90 text-[15px] sm:text-base md:text-lg leading-relaxed mb-7 sm:mb-8 max-w-2xl" data-i18n="hero_lead">
+          The YOSHIO Lab designs supramolecular liquid crystals and polymer electrolytes that channel
+          ions through self-assembled nanostructures. We translate this molecular control into
+          electromechanical soft actuators, haptic devices, and energy materials at the intersection
+          of chemistry, soft matter physics, and mechatronics.
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <a href="#research" class="inline-flex items-center gap-2 bg-white text-academic-800 px-5 py-3 rounded-md font-semibold shadow-soft hover:bg-academic-50 transition">
+            <span data-i18n="hero_cta_research">Explore Research</span>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#contact" class="inline-flex items-center gap-2 border border-white/60 text-white px-5 py-3 rounded-md font-semibold hover:bg-white/10 transition" data-i18n="hero_cta_contact">Contact Us</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/70 floaty hidden md:block">
+      <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+    </div>
+  </section>
+
+  <!-- ==================== ABOUT BAND ==================== -->
+  <section class="bg-academic-50/60 border-y border-academic-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-12 sm:py-14 md:py-20 grid md:grid-cols-3 gap-8 sm:gap-10 md:gap-14">
+      <div class="md:col-span-1">
+        <h2 class="section-title text-2xl md:text-3xl font-semibold text-academic-900" data-i18n="about_title">About the Lab</h2>
+      </div>
+      <div class="md:col-span-2 space-y-5 text-academic-800 leading-relaxed text-[15px] md:text-base">
+        <p data-i18n="about_p1">
+          The YOSHIO Lab is the Molecular Mechatronics Group at the Research Center for Macromolecules
+          and Biomaterials, National Institute for Materials Science (NIMS), led by Dr. Masafumi Yoshio,
+          who concurrently serves as a Professor at the Graduate School of Chemical Sciences and
+          Engineering, Hokkaido University (NIMS Joint Graduate School).
+        </p>
+        <p data-i18n="about_p2">
+          We design supramolecular liquid crystals, ionic polymer electrolytes, and π-conjugated
+          functional materials that exploit nanophase-separated self-assembly to control the transport
+          of ions, electrons, and light. Our work bridges fundamental soft-matter chemistry with
+          next-generation soft actuators, haptic interfaces, sensors, and energy devices.
+        </p>
+        <div class="grid grid-cols-3 gap-4 pt-4">
+          <div class="text-center">
+            <div class="text-2xl sm:text-3xl font-bold text-academic-700">2&nbsp;V</div>
+            <div class="text-[10px] sm:text-xs uppercase tracking-wider text-academic-600 mt-1" data-i18n="stat_voltage">Drive voltage</div>
+          </div>
+          <div class="text-center">
+            <div class="text-2xl sm:text-3xl font-bold text-academic-700">100&nbsp;Hz</div>
+            <div class="text-[10px] sm:text-xs uppercase tracking-wider text-academic-600 mt-1" data-i18n="stat_freq">Actuator response</div>
+          </div>
+          <div class="text-center">
+            <div class="text-2xl sm:text-3xl font-bold text-academic-700">100+</div>
+            <div class="text-[10px] sm:text-xs uppercase tracking-wider text-academic-600 mt-1" data-i18n="stat_pubs">Publications</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== NEWS ==================== -->
+  <section id="news" class="py-14 sm:py-16 md:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+      <div class="flex items-end justify-between mb-8 sm:mb-10 md:mb-14 flex-wrap gap-4">
+        <h2 class="section-title text-2xl md:text-3xl font-semibold" data-i18n="news_title">News</h2>
+        <a href="https://samurai.nims.go.jp/profiles/yoshio_masafumi/publications" target="_blank" rel="noopener" class="text-sm font-semibold text-academic-700 hover:text-academic-500 transition" data-i18n="news_all">Latest publications →</a>
+      </div>
+
+      <div class="timeline space-y-8">
+        <div class="timeline-item relative">
+          <div class="text-xs font-semibold text-academic-600 uppercase tracking-wider">2026.04</div>
+          <h3 class="text-lg font-semibold mt-1" data-i18n="news_1_t">New paper published in ACS Applied Polymer Materials</h3>
+          <p class="text-academic-700 mt-1 text-[15px]" data-i18n="news_1_d">T. Ikeda and M. Yoshio, "Fluorinated Glycidyl Triazolyl Polymers Exhibiting Thermally Stable Layered Structures and Sticky Hydrophobic Surfaces," ACS Appl. Polym. Mater. (2026).</p>
+        </div>
+        <div class="timeline-item relative">
+          <div class="text-xs font-semibold text-academic-600 uppercase tracking-wider">2025.03</div>
+          <h3 class="text-lg font-semibold mt-1" data-i18n="news_2_t">Two papers published with Dr. Liu</h3>
+          <p class="text-academic-700 mt-1 text-[15px]" data-i18n="news_2_d">C. Liu and M. Yoshio reported electroactive soft actuators using 3D Li-ion-conducting phosphate columnar liquid crystals (STAM) and ion-conductive LC gels (Materials Today Chemistry).</p>
+        </div>
+        <div class="timeline-item relative">
+          <div class="text-xs font-semibold text-academic-600 uppercase tracking-wider">2024</div>
+          <h3 class="text-lg font-semibold mt-1" data-i18n="news_3_t">Triple awards in 2024</h3>
+          <p class="text-academic-700 mt-1 text-[15px]" data-i18n="news_3_d">Prof. Yoshio received the SPSJ Mitsubishi Chemical Award, the NIMS President's Award for Research Encouragement, and the JLCS Paper Award.</p>
+        </div>
+        <div class="timeline-item relative">
+          <div class="text-xs font-semibold text-academic-600 uppercase tracking-wider">2024.05</div>
+          <h3 class="text-lg font-semibold mt-1" data-i18n="news_4_t">Cover paper in Adv. Funct. Mater.</h3>
+          <p class="text-academic-700 mt-1 text-[15px]" data-i18n="news_4_d">M. Yoshio, C.-H. Wu, C. Liu. "Mechanically Tough Micellar Cubic Liquid-Crystalline Polymer Electrolytes for Electromechanical Actuators," Adv. Funct. Mater. 34, 2314087 (2024).</p>
+        </div>
+        <div class="timeline-item relative">
+          <div class="text-xs font-semibold text-academic-600 uppercase tracking-wider">2023.04</div>
+          <h3 class="text-lg font-semibold mt-1" data-i18n="news_5_t">JST PRESTO project launched</h3>
+          <p class="text-academic-700 mt-1 text-[15px]" data-i18n="news_5_d">Started a new JST PRESTO (Sakigake) research project, "Future mechatronics materials enabled by liquid-crystalline molecular alignment."</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== RESEARCH ==================== -->
+  <section id="research" class="py-14 sm:py-16 md:py-24 bg-academic-50/50 border-y border-academic-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+      <div class="max-w-2xl mx-auto text-center mb-10 sm:mb-12 md:mb-16">
+        <h2 class="section-title center text-2xl md:text-3xl font-semibold inline-block" data-i18n="research_title">Research</h2>
+        <p class="mt-5 sm:mt-6 text-academic-700 leading-relaxed text-[15px] sm:text-base" data-i18n="research_lead">
+          We pursue interconnected themes that link molecular design, nanostructure formation, and device function — turning supramolecular self-assembly into working materials.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 md:gap-8">
+        <article class="research-card bg-white rounded-xl overflow-hidden shadow-soft border border-academic-100">
+          <div class="h-40 sm:h-44 img-placeholder relative">
+            <img src="https://images.unsplash.com/photo-1554475901-4538ddfbccc2?auto=format&fit=crop&w=900&q=80" alt="" class="w-full h-full object-cover opacity-90" onerror="this.style.display='none'"/>
+          </div>
+          <div class="p-5 sm:p-6">
+            <div class="text-xs font-semibold tracking-wider text-academic-600 uppercase" data-i18n="research_1_tag">Theme 01</div>
+            <h3 class="text-lg font-semibold mt-1" data-i18n="research_1_t">Liquid-Crystalline Ion Conductors</h3>
+            <p class="text-academic-700 mt-2 text-sm leading-relaxed" data-i18n="research_1_d">Nanosegregated liquid crystals and ionic liquids that form 1D, 2D, and 3D continuous ion-transport pathways for fast and anisotropic conduction.</p>
+          </div>
+        </article>
+
+        <article class="research-card bg-white rounded-xl overflow-hidden shadow-soft border border-academic-100">
+          <div class="h-40 sm:h-44 img-placeholder relative">
+            <img src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=900&q=80" alt="" class="w-full h-full object-cover opacity-90" onerror="this.style.display='none'"/>
+          </div>
+          <div class="p-5 sm:p-6">
+            <div class="text-xs font-semibold tracking-wider text-academic-600 uppercase" data-i18n="research_2_tag">Theme 02</div>
+            <h3 class="text-lg font-semibold mt-1" data-i18n="research_2_t">Soft Actuators & Haptic Devices</h3>
+            <p class="text-academic-700 mt-2 text-sm leading-relaxed" data-i18n="research_2_d">Photopolymerized ionic LC polymer films driven at ≤ 2 V, delivering 100 Hz fast vibration, 5 gf output, and shape-memory function for haptics and soft robotics.</p>
+          </div>
+        </article>
+
+        <article class="research-card bg-white rounded-xl overflow-hidden shadow-soft border border-academic-100">
+          <div class="h-40 sm:h-44 img-placeholder relative">
+            <img src="https://images.unsplash.com/photo-1628595351029-c2bf17511435?auto=format&fit=crop&w=900&q=80" alt="" class="w-full h-full object-cover opacity-90" onerror="this.style.display='none'"/>
+          </div>
+          <div class="p-5 sm:p-6">
+            <div class="text-xs font-semibold tracking-wider text-academic-600 uppercase" data-i18n="research_3_tag">Theme 03</div>
+            <h3 class="text-lg font-semibold mt-1" data-i18n="research_3_t">Supramolecular Self-Assembly</h3>
+            <p class="text-academic-700 mt-2 text-sm leading-relaxed" data-i18n="research_3_d">Hydrogen-bonded, ion–dipole, and metal-coordination interactions to build columnar, smectic, cubic, and bicontinuous nanostructures with tailored function.</p>
+          </div>
+        </article>
+
+        <article class="research-card bg-white rounded-xl overflow-hidden shadow-soft border border-academic-100">
+          <div class="h-40 sm:h-44 img-placeholder relative">
+            <img src="https://images.unsplash.com/photo-1581093588401-fbb62a02f120?auto=format&fit=crop&w=900&q=80" alt="" class="w-full h-full object-cover opacity-90" onerror="this.style.display='none'"/>
+          </div>
+          <div class="p-5 sm:p-6">
+            <div class="text-xs font-semibold tracking-wider text-academic-600 uppercase" data-i18n="research_4_tag">Theme 04</div>
+            <h3 class="text-lg font-semibold mt-1" data-i18n="research_4_t">π-Conjugated LC Semiconductors</h3>
+            <p class="text-academic-700 mt-2 text-sm leading-relaxed" data-i18n="research_4_d">Ferroelectric and photoconductive π-conjugated liquid crystals — including oxadiazole and thiophene-based polycatenars — for photovoltaics and sensors.</p>
+          </div>
+        </article>
+
+        <article class="research-card bg-white rounded-xl overflow-hidden shadow-soft border border-academic-100">
+          <div class="h-40 sm:h-44 img-placeholder relative">
+            <img src="https://images.unsplash.com/photo-1530210124550-912dc1381cb8?auto=format&fit=crop&w=900&q=80" alt="" class="w-full h-full object-cover opacity-90" onerror="this.style.display='none'"/>
+          </div>
+          <div class="p-5 sm:p-6">
+            <div class="text-xs font-semibold tracking-wider text-academic-600 uppercase" data-i18n="research_5_tag">Theme 05</div>
+            <h3 class="text-lg font-semibold mt-1" data-i18n="research_5_t">Li-Ion Conducting Phosphate LCs</h3>
+            <p class="text-academic-700 mt-2 text-sm leading-relaxed" data-i18n="research_5_d">Phosphate-ester columnar liquid crystals complexed with lithium salts as non-flammable, self-healing electrolyte concepts for next-generation Li batteries.</p>
+          </div>
+        </article>
+
+        <article class="research-card bg-white rounded-xl overflow-hidden shadow-soft border border-academic-100">
+          <div class="h-40 sm:h-44 img-placeholder relative">
+            <img src="https://images.unsplash.com/photo-1607619056574-7b8d3ee536b2?auto=format&fit=crop&w=900&q=80" alt="" class="w-full h-full object-cover opacity-90" onerror="this.style.display='none'"/>
+          </div>
+          <div class="p-5 sm:p-6">
+            <div class="text-xs font-semibold tracking-wider text-academic-600 uppercase" data-i18n="research_6_tag">Theme 06</div>
+            <h3 class="text-lg font-semibold mt-1" data-i18n="research_6_t">Mechanochromic Luminescence</h3>
+            <p class="text-academic-700 mt-2 text-sm leading-relaxed" data-i18n="research_6_d">Stimuli-responsive emission of hydrogen-bonded benzodithiophene and guanine–oligothiophene assemblies — toward mechanical sensors and optical memory.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PUBLICATIONS ==================== -->
+  <section id="publications" class="py-14 sm:py-16 md:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+      <div class="flex items-end justify-between mb-8 sm:mb-10 md:mb-14 flex-wrap gap-4">
+        <h2 class="section-title text-2xl md:text-3xl font-semibold" data-i18n="pubs_title">Selected Publications</h2>
+        <a href="https://scholar.google.com/scholar?hl=ja&q=%22YOSHIO%2C+Masafumi%22" target="_blank" rel="noopener" class="text-sm font-semibold text-academic-700 hover:text-academic-500 transition" data-i18n="pubs_all">Full list (Google Scholar / NIMS SAMURAI) →</a>
+      </div>
+
+      <div class="flex flex-wrap gap-2 mb-6 sm:mb-8" id="pubs-tabs">
+        <button class="pub-tab px-3 sm:px-4 py-1.5 rounded-full text-sm font-semibold border border-academic-200 hover:bg-academic-50 transition" data-year="2026">2026</button>
+        <button class="pub-tab px-3 sm:px-4 py-1.5 rounded-full text-sm font-semibold border border-academic-200 hover:bg-academic-50 transition" data-year="2025">2025</button>
+        <button class="pub-tab px-3 sm:px-4 py-1.5 rounded-full text-sm font-semibold border border-academic-200 hover:bg-academic-50 transition" data-year="2024">2024</button>
+        <button class="pub-tab px-3 sm:px-4 py-1.5 rounded-full text-sm font-semibold border border-academic-200 hover:bg-academic-50 transition" data-year="2023">2023</button>
+        <button class="pub-tab px-3 sm:px-4 py-1.5 rounded-full text-sm font-semibold border border-academic-200 hover:bg-academic-50 transition" data-year="2022">2022</button>
+      </div>
+
+      <div id="pubs-content" class="space-y-10">
+        <!-- 2026 -->
+        <div class="pub-year" data-year="2026">
+          <h3 class="text-xl font-semibold text-academic-700 mb-4">2026</h3>
+          <ol class="space-y-4 list-decimal list-inside marker:text-academic-400">
+            <li class="pl-2">
+              T. Ikeda, <span class="font-medium">M. Yoshio</span>. "Fluorinated Glycidyl Triazolyl Polymers Exhibiting Thermally Stable Layered Structures and Sticky Hydrophobic Surfaces."
+              <em class="text-academic-700">ACS Appl. Polym. Mater.</em> <strong>8</strong>, 3023–3032 (2026).
+              <a href="https://doi.org/10.1021/acsapm.5c04519" target="_blank" rel="noopener" class="text-academic-600 hover:text-academic-500 text-sm">[DOI]</a>
+            </li>
+          </ol>
+        </div>
+        <!-- 2025 -->
+        <div class="pub-year" data-year="2025">
+          <h3 class="text-xl font-semibold text-academic-700 mb-4">2025</h3>
+          <ol class="space-y-4 list-decimal list-inside marker:text-academic-400">
+            <li class="pl-2">
+              <span class="font-medium">C. Liu</span>, <span class="font-medium">M. Yoshio</span>. "Electroactive soft actuators utilizing PEDOT:PSS and 3D lithium-ion-conducting phosphate columnar liquid crystals embedded in a porous polyethylene membrane."
+              <em class="text-academic-700">Sci. Technol. Adv. Mater.</em> <strong>26</strong>, 2475738 (2025).
+              <a href="https://doi.org/10.1080/14686996.2025.2475738" target="_blank" rel="noopener" class="text-academic-600 hover:text-academic-500 text-sm">[DOI]</a>
+            </li>
+            <li class="pl-2">
+              <span class="font-medium">C. Liu</span>, <span class="font-medium">M. Yoshio</span>. "Ion-conductive liquid-crystalline gels for enhanced soft actuator applications."
+              <em class="text-academic-700">Materials Today Chemistry</em> <strong>46</strong>, 102715 (2025).
+              <a href="https://doi.org/10.1016/j.mtchem.2025.102715" target="_blank" rel="noopener" class="text-academic-600 hover:text-academic-500 text-sm">[DOI]</a>
+            </li>
+          </ol>
+        </div>
+        <!-- 2024 -->
+        <div class="pub-year" data-year="2024">
+          <h3 class="text-xl font-semibold text-academic-700 mb-4">2024</h3>
+          <ol class="space-y-4 list-decimal list-inside marker:text-academic-400">
+            <li class="pl-2">
+              <span class="font-medium">M. Yoshio</span>, C.-H. Wu, <span class="font-medium">C. Liu</span>. "Mechanically Tough Micellar Cubic Liquid-Crystalline Polymer Electrolytes for Electromechanical Actuators."
+              <em class="text-academic-700">Adv. Funct. Mater.</em> <strong>34</strong>, 2314087 (2024).
+              <a href="https://doi.org/10.1002/adfm.202314087" target="_blank" rel="noopener" class="text-academic-600 hover:text-academic-500 text-sm">[DOI]</a>
+            </li>
+            <li class="pl-2">
+              <span class="font-medium">C. Liu</span>, <span class="font-medium">M. Yoshio</span>. "Ionic Liquid Crystal–Polymer Composite Electromechanical Actuators: Design of Two-Dimensional Molecular Assemblies for Efficient Ion Transport and Effect of Electrodes on Actuator Performance."
+              <em class="text-academic-700">ACS Appl. Mater. Interfaces</em> <strong>16</strong>, 27750–27760 (2024).
+              <a href="https://doi.org/10.1021/acsami.4c03821" target="_blank" rel="noopener" class="text-academic-600 hover:text-academic-500 text-sm">[DOI]</a>
+            </li>
+            <li class="pl-2">
+              K. Sakamoto, T. Yasuda, T. Minari, <span class="font-medium">M. Yoshio</span>, J. Kuwabara, M. Takeuchi. "Overestimation of Operational Stability in Polymer-Based Organic Field-Effect Transistors Caused by Contact Resistance."
+              <em class="text-academic-700">ACS Appl. Mater. Interfaces</em> <strong>16</strong>, 68081–68090 (2024).
+              <a href="https://doi.org/10.1021/acsami.4c15666" target="_blank" rel="noopener" class="text-academic-600 hover:text-academic-500 text-sm">[DOI]</a>
+            </li>
+            <li class="pl-2">
+              M. Alaasar, A. F. Darweesh, Y. Cao, K. Iakoubovskii, <span class="font-medium">M. Yoshio</span>. "Electric field- and light-responsive oxadiazole bent-core polycatenar liquid crystals."
+              <em class="text-academic-700">J. Mater. Chem. C</em> <strong>12</strong>, 1523–1532 (2024).
+              <a href="https://doi.org/10.1039/d3tc04349e" target="_blank" rel="noopener" class="text-academic-600 hover:text-academic-500 text-sm">[DOI]</a>
+            </li>
+          </ol>
+        </div>
+        <!-- 2023 -->
+        <div class="pub-year" data-year="2023">
+          <h3 class="text-xl font-semibold text-academic-700 mb-4">2023</h3>
+          <ol class="space-y-4 list-decimal list-inside marker:text-academic-400">
+            <li class="pl-2">
+              <span class="font-medium">C. Liu</span>, S. Cao, <span class="font-medium">M. Yoshio</span>. "Ion-Conducting Non-Flammable Liquid Crystal–Polymer Composites for High-Frequency Soft Actuators."
+              <em class="text-academic-700">Adv. Funct. Mater.</em> <strong>33</strong>, 2300538 (2023).
+              <a href="https://doi.org/10.1002/adfm.202300538" target="_blank" rel="noopener" class="text-academic-600 hover:text-academic-500 text-sm">[DOI]</a>
+            </li>
+            <li class="pl-2">
+              S. Suwa, <span class="font-medium">C. Liu</span>, <span class="font-medium">M. Yoshio</span>. "Anisotropic ion-conductive supramolecular columnar liquid crystals composed of a benzonitrile derivative and ionic liquids."
+              <em class="text-academic-700">Materials Today Chemistry</em> <strong>34</strong>, 101829 (2023).
+              <a href="https://doi.org/10.1016/j.mtchem.2023.101829" target="_blank" rel="noopener" class="text-academic-600 hover:text-academic-500 text-sm">[DOI]</a>
+            </li>
+            <li class="pl-2">
+              S. Cao, <span class="font-medium">C. Liu</span>, <span class="font-medium">M. Yoshio</span>. "Ionic electroactive PEDOT:PSS/liquid-crystalline polymer electrolyte actuators."
+              <em class="text-academic-700">Materials Chemistry Frontiers</em> <strong>7</strong>, 2828–2838 (2023).
+              <a href="https://doi.org/10.1039/d3qm00192j" target="_blank" rel="noopener" class="text-academic-600 hover:text-academic-500 text-sm">[DOI]</a>
+            </li>
+            <li class="pl-2">
+              C.-H. Wu, W. Meng, K. Iakoubovskii, <span class="font-medium">M. Yoshio</span>. "Photocured Liquid-Crystalline Polymer Electrolytes with 3D Ion Transport Pathways for Electromechanical Actuators."
+              <em class="text-academic-700">ACS Appl. Mater. Interfaces</em> <strong>15</strong>, 4495–4504 (2023).
+              <a href="https://doi.org/10.1021/acsami.2c19382" target="_blank" rel="noopener" class="text-academic-600 hover:text-academic-500 text-sm">[DOI]</a>
+            </li>
+          </ol>
+        </div>
+        <!-- 2022 -->
+        <div class="pub-year" data-year="2022">
+          <h3 class="text-xl font-semibold text-academic-700 mb-4">2022</h3>
+          <ol class="space-y-4 list-decimal list-inside marker:text-academic-400">
+            <li class="pl-2">
+              K. Iakoubovskii, <span class="font-medium">M. Yoshio</span>. "Room-Temperature Zwitterionic Liquid Crystals for Mechanical Actuators."
+              <em class="text-academic-700">ACS Materials Au</em> <strong>2</strong>, 686–689 (2022).
+              <a href="https://doi.org/10.1021/acsmaterialsau.2c00053" target="_blank" rel="noopener" class="text-academic-600 hover:text-academic-500 text-sm">[DOI]</a>
+            </li>
+            <li class="pl-2">
+              S. Cao, J. Aimi, <span class="font-medium">M. Yoshio</span>. "Electroactive Soft Actuators Based on Columnar Ionic Liquid Crystal/Polymer Composite Membrane Electrolytes Forming 3D Continuous Ionic Channels."
+              <em class="text-academic-700">ACS Appl. Mater. Interfaces</em> <strong>14</strong>, 43701–43710 (2022).
+              <a href="https://doi.org/10.1021/acsami.2c11029" target="_blank" rel="noopener" class="text-academic-600 hover:text-academic-500 text-sm">[DOI]</a>
+            </li>
+            <li class="pl-2">
+              C.-H. Wu, W. Meng, <span class="font-medium">M. Yoshio</span>. "Low-Voltage-Driven Actuators Using Photo-Cross-Linked Ionic Columnar Liquid-Crystalline Polymer Films."
+              <em class="text-academic-700">ACS Materials Letters</em> <strong>4</strong>, 153–158 (2022).
+              <a href="https://doi.org/10.1021/acsmaterialslett.1c00565" target="_blank" rel="noopener" class="text-academic-600 hover:text-academic-500 text-sm">[DOI]</a>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== MEMBERS ==================== -->
+  <section id="members" class="py-14 sm:py-16 md:py-24 bg-academic-50/50 border-y border-academic-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+      <div class="mb-10 sm:mb-12 md:mb-14">
+        <h2 class="section-title text-2xl md:text-3xl font-semibold" data-i18n="members_title">Members</h2>
+      </div>
+
+      <!-- PI -->
+      <div class="mb-10">
+        <h3 class="text-sm font-semibold tracking-wider uppercase text-academic-600 mb-4" data-i18n="members_pi">Principal Investigator</h3>
+        <div class="bg-white rounded-xl border border-academic-100 shadow-soft p-5 sm:p-6 flex flex-col sm:flex-row items-center sm:items-start gap-5 sm:gap-6">
+          <div class="w-28 h-28 sm:w-32 sm:h-32 rounded-full img-placeholder text-white grid place-items-center font-serif text-3xl sm:text-4xl shadow-soft shrink-0">Y</div>
+          <div class="text-center sm:text-left">
+            <h4 class="text-xl font-semibold" data-i18n="pi_name">Dr. Masafumi Yoshio (吉尾 正史)</h4>
+            <p class="text-academic-600 text-sm mt-1" data-i18n="pi_role">
+              Group Leader, Molecular Mechatronics Group, NIMS<br/>
+              Professor (concurrent), Hokkaido University (NIMS Joint Graduate School)
+            </p>
+            <p class="text-academic-800 text-[15px] mt-3 max-w-2xl leading-relaxed" data-i18n="pi_bio">
+              Research interests: supramolecules, liquid crystals, nanofibers, ion conductors, organic
+              semiconductors, thermal conductivity, and mechanochromic luminescence. Awards include the
+              SPSJ Mitsubishi Chemical Award (2024), the NIMS President's Award for Research
+              Encouragement (2024), the JLCS Paper Award (2024, 2019), and the SPSJ Hitachi Chemical
+              Award (2012).
+            </p>
+            <div class="flex flex-wrap justify-center sm:justify-start gap-x-3 gap-y-1 mt-4 text-academic-700 text-sm">
+              <a href="https://samurai.nims.go.jp/profiles/yoshio_masafumi?locale=en" target="_blank" rel="noopener" class="hover:text-academic-500">NIMS SAMURAI</a>
+              <span class="text-academic-200">|</span>
+              <a href="https://orcid.org/0000-0002-1442-4352" target="_blank" rel="noopener" class="hover:text-academic-500">ORCID</a>
+              <span class="text-academic-200">|</span>
+              <a href="https://scholar.google.com/scholar?hl=ja&q=%22YOSHIO%2C+Masafumi%22" target="_blank" rel="noopener" class="hover:text-academic-500">Google Scholar</a>
+              <span class="text-academic-200">|</span>
+              <a href="https://researchmap.jp/masafumi_yoshio" target="_blank" rel="noopener" class="hover:text-academic-500">researchmap</a>
+              <span class="text-academic-200">|</span>
+              <a href="https://www.webofscience.com/wos/author/record/U-7213-2017" target="_blank" rel="noopener" class="hover:text-academic-500">Web of Science</a>
+              <span class="text-academic-200">|</span>
+              <a href="https://www.scopus.com/authid/detail.uri?authorId=7005932795" target="_blank" rel="noopener" class="hover:text-academic-500">Scopus</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Postdoc -->
+      <div class="mb-10">
+        <h3 class="text-sm font-semibold tracking-wider uppercase text-academic-600 mb-4" data-i18n="members_postdoc">Postdoctoral Researcher</h3>
+        <div class="bg-white rounded-xl border border-academic-100 shadow-soft p-5 sm:p-6 flex flex-col sm:flex-row items-center sm:items-start gap-5 sm:gap-6">
+          <div class="w-28 h-28 sm:w-32 sm:h-32 rounded-full img-placeholder text-white grid place-items-center font-serif text-3xl sm:text-4xl shadow-soft shrink-0">L</div>
+          <div class="text-center sm:text-left">
+            <h4 class="text-xl font-semibold" data-i18n="pd_name">Dr. Chengyang Liu (劉 成洋)</h4>
+            <p class="text-academic-600 text-sm mt-1" data-i18n="pd_role">Postdoctoral Research Fellow, Molecular Mechatronics Group, NIMS</p>
+            <p class="text-academic-800 text-[15px] mt-3 max-w-2xl leading-relaxed" data-i18n="pd_bio">
+              Research focus: design of ion-conductive liquid-crystalline polymer composites and
+              phosphate columnar liquid crystals for electromechanical soft actuators and haptic
+              devices. Recent first-author papers in Adv. Funct. Mater., ACS Appl. Mater. Interfaces,
+              Sci. Technol. Adv. Mater., and Materials Today Chemistry.
+            </p>
+            <div class="flex flex-wrap justify-center sm:justify-start gap-x-3 gap-y-1 mt-4 text-academic-700 text-sm">
+              <a href="https://samurai.nims.go.jp/profiles/liu_chengyang?locale=en" target="_blank" rel="noopener" class="hover:text-academic-500">NIMS SAMURAI</a>
+              <span class="text-academic-200">|</span>
+              <a href="https://orcid.org/0000-0001-5072-6991" target="_blank" rel="noopener" class="hover:text-academic-500">ORCID</a>
+              <span class="text-academic-200">|</span>
+              <a href="https://scholar.google.com/scholar?hl=ja&q=%22LIU%2C+Chengyang%22" target="_blank" rel="noopener" class="hover:text-academic-500">Google Scholar</a>
+              <span class="text-academic-200">|</span>
+              <a href="mailto:LIU.Chengyang@nims.go.jp" class="hover:text-academic-500">Email</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recruiting -->
+      <h3 class="text-sm font-semibold tracking-wider uppercase text-academic-600 mb-4" data-i18n="members_join">Join Us</h3>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+        <div class="bg-white rounded-xl border border-dashed border-academic-300 p-5 sm:p-6">
+          <div class="text-xs font-semibold tracking-wider text-academic-600 uppercase" data-i18n="join_phd_tag">Ph.D. Course</div>
+          <h4 class="mt-1 font-semibold text-academic-900" data-i18n="join_phd_t">Graduate Students</h4>
+          <p class="text-academic-700 text-sm mt-2" data-i18n="join_phd_d">Through the NIMS Joint Graduate School with Hokkaido University. Tuition support and research scholarships available for qualified applicants.</p>
+        </div>
+        <div class="bg-white rounded-xl border border-dashed border-academic-300 p-5 sm:p-6">
+          <div class="text-xs font-semibold tracking-wider text-academic-600 uppercase" data-i18n="join_pd_tag">Postdoc</div>
+          <h4 class="mt-1 font-semibold text-academic-900" data-i18n="join_pd_t">Postdoctoral Fellows</h4>
+          <p class="text-academic-700 text-sm mt-2" data-i18n="join_pd_d">We welcome motivated postdocs with backgrounds in liquid crystals, supramolecular chemistry, polymer science, or device engineering.</p>
+        </div>
+        <div class="bg-white rounded-xl border border-dashed border-academic-300 p-5 sm:p-6">
+          <div class="text-xs font-semibold tracking-wider text-academic-600 uppercase" data-i18n="join_vis_tag">Visiting</div>
+          <h4 class="mt-1 font-semibold text-academic-900" data-i18n="join_vis_t">Visiting Researchers</h4>
+          <p class="text-academic-700 text-sm mt-2" data-i18n="join_vis_d">Short-term visits and collaborative research are possible. Please contact Prof. Yoshio with a CV and research proposal.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CONTACT ==================== -->
+  <section id="contact" class="py-14 sm:py-16 md:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+      <div class="mb-8 sm:mb-10 md:mb-14">
+        <h2 class="section-title text-2xl md:text-3xl font-semibold" data-i18n="contact_title">Contact & Access</h2>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-8 md:gap-12 items-start">
+        <div class="space-y-6 text-academic-800 text-[15px]">
+          <div>
+            <div class="text-xs font-semibold tracking-wider uppercase text-academic-600" data-i18n="contact_addr_label">Address</div>
+            <p class="mt-1" data-i18n="contact_addr">
+              Molecular Mechatronics Group<br/>
+              Research Center for Macromolecules and Biomaterials<br/>
+              National Institute for Materials Science (NIMS)<br/>
+              1-2-1 Sengen, Tsukuba, Ibaraki 305-0047, Japan
+            </p>
+          </div>
+          <div>
+            <div class="text-xs font-semibold tracking-wider uppercase text-academic-600" data-i18n="contact_email_label">Email</div>
+            <p class="mt-1"><a href="mailto:YOSHIO.Masafumi@nims.go.jp" class="text-academic-700 hover:text-academic-500 break-all">YOSHIO.Masafumi@nims.go.jp</a></p>
+          </div>
+          <div>
+            <div class="text-xs font-semibold tracking-wider uppercase text-academic-600" data-i18n="contact_tel_label">Phone</div>
+            <p class="mt-1">+81-29-860-4728</p>
+          </div>
+          <div>
+            <div class="text-xs font-semibold tracking-wider uppercase text-academic-600" data-i18n="contact_links_label">External Links</div>
+            <ul class="mt-2 space-y-1.5">
+              <li><a href="https://www.nims.go.jp/group/molmechatro/index.html" target="_blank" rel="noopener" class="text-academic-700 hover:text-academic-500">→ Molecular Mechatronics Group (NIMS)</a></li>
+              <li><a href="https://www.cse.hokudai.ac.jp/lab/mat/functional-materials-chemistry/" target="_blank" rel="noopener" class="text-academic-700 hover:text-academic-500">→ Hokkaido Univ. — Functional Materials Chemistry</a></li>
+              <li><a href="https://samurai.nims.go.jp/profiles/yoshio_masafumi?locale=en" target="_blank" rel="noopener" class="text-academic-700 hover:text-academic-500">→ NIMS SAMURAI profile (Yoshio)</a></li>
+              <li><a href="https://samurai.nims.go.jp/profiles/liu_chengyang?locale=en" target="_blank" rel="noopener" class="text-academic-700 hover:text-academic-500">→ NIMS SAMURAI profile (Liu)</a></li>
+              <li><a href="https://www.nims.go.jp/eng/access/tsukuba_sengen.html" target="_blank" rel="noopener" class="text-academic-700 hover:text-academic-500">→ Access to NIMS Sengen site</a></li>
+            </ul>
+          </div>
+          <div class="pt-2">
+            <p class="text-academic-700" data-i18n="contact_join">
+              We welcome inquiries from prospective students, postdoctoral fellows, and visiting
+              researchers. Please email Prof. Yoshio with a CV and a brief statement of research
+              interests.
+            </p>
+          </div>
+        </div>
+
+        <!-- Map: NIMS Sengen, Tsukuba -->
+        <div class="rounded-xl overflow-hidden border border-academic-100 shadow-soft bg-academic-50 aspect-[4/3] relative">
+          <iframe
+            title="NIMS Sengen site map"
+            class="absolute inset-0 w-full h-full"
+            src="https://www.openstreetmap.org/export/embed.html?bbox=140.1100%2C36.0635%2C140.1265%2C36.0735&layer=mapnik&marker=36.0686%2C140.1183"
+            style="border:0;"
+            loading="lazy"></iframe>
+          <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1.5 rounded-md text-xs text-academic-700 shadow-soft max-w-[80%]">
+            <span data-i18n="contact_map_caption">NIMS Sengen, Tsukuba · Map © OpenStreetMap</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="bg-academic-900 text-academic-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-12 grid md:grid-cols-3 gap-8 sm:gap-10">
+      <div>
+        <div class="flex items-center gap-3">
+          <div class="h-10 w-10 rounded-md bg-white/10 grid place-items-center font-serif font-bold text-lg">Y</div>
+          <div>
+            <div class="font-semibold" data-i18n="brand">YOSHIO Lab</div>
+            <div class="text-xs text-academic-300" data-i18n="brand_sub">Molecular Mechatronics · NIMS</div>
+          </div>
+        </div>
+        <p class="mt-4 text-sm text-academic-200/90 leading-relaxed" data-i18n="footer_about">
+          Designing nanostructured liquid crystals and ionic polymer electrolytes for soft actuators,
+          haptic devices, and energy materials.
+        </p>
+      </div>
+      <div>
+        <div class="text-xs font-semibold tracking-wider uppercase text-academic-300 mb-3" data-i18n="footer_nav">Navigate</div>
+        <ul class="space-y-2 text-sm">
+          <li><a href="#home"         class="hover:text-white" data-i18n="nav_home">Home</a></li>
+          <li><a href="#news"         class="hover:text-white" data-i18n="nav_news">News</a></li>
+          <li><a href="#research"     class="hover:text-white" data-i18n="nav_research">Research</a></li>
+          <li><a href="#publications" class="hover:text-white" data-i18n="nav_publications">Publications</a></li>
+          <li><a href="#members"      class="hover:text-white" data-i18n="nav_members">Members</a></li>
+          <li><a href="#contact"      class="hover:text-white" data-i18n="nav_contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="text-xs font-semibold tracking-wider uppercase text-academic-300 mb-3" data-i18n="footer_contact">Contact</div>
+        <p class="text-sm text-academic-200/90 leading-relaxed" data-i18n="footer_addr">
+          Molecular Mechatronics Group, NIMS<br/>
+          1-2-1 Sengen, Tsukuba<br/>
+          Ibaraki 305-0047, Japan
+        </p>
+        <p class="text-sm mt-3"><a href="mailto:YOSHIO.Masafumi@nims.go.jp" class="hover:text-white break-all">YOSHIO.Masafumi@nims.go.jp</a></p>
+      </div>
+    </div>
+    <div class="border-t border-white/10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-5 text-xs text-academic-300 flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
+        <div>© <span id="year"></span> YOSHIO Lab · Molecular Mechatronics Group, NIMS</div>
+        <div data-i18n="footer_credit">Designed with care · Built with HTML &amp; Tailwind CSS</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== SCRIPTS ==================== -->
+  <script>
+    /* ---------- Translations ---------- */
+    const I18N = {
+      en: {
+        brand: 'YOSHIO Lab',
+        brand_sub: 'Molecular Mechatronics · NIMS',
+        nav_home: 'Home', nav_news: 'News', nav_research: 'Research',
+        nav_publications: 'Publications', nav_members: 'Members', nav_contact: 'Contact',
+
+        hero_kicker: 'Molecular Mechatronics Group · NIMS / Hokkaido Univ.',
+        hero_title:  'Designing nanostructured liquid crystals<br/>for next-generation soft actuators.',
+        hero_lead:   'The YOSHIO Lab designs supramolecular liquid crystals and polymer electrolytes that channel ions through self-assembled nanostructures. We translate this molecular control into electromechanical soft actuators, haptic devices, and energy materials at the intersection of chemistry, soft matter physics, and mechatronics.',
+        hero_cta_research: 'Explore Research',
+        hero_cta_contact:  'Contact Us',
+
+        about_title: 'About the Lab',
+        about_p1: "The YOSHIO Lab is the Molecular Mechatronics Group at the Research Center for Macromolecules and Biomaterials, National Institute for Materials Science (NIMS), led by Dr. Masafumi Yoshio, who concurrently serves as a Professor at the Graduate School of Chemical Sciences and Engineering, Hokkaido University (NIMS Joint Graduate School).",
+        about_p2: 'We design supramolecular liquid crystals, ionic polymer electrolytes, and π-conjugated functional materials that exploit nanophase-separated self-assembly to control the transport of ions, electrons, and light. Our work bridges fundamental soft-matter chemistry with next-generation soft actuators, haptic interfaces, sensors, and energy devices.',
+        stat_voltage: 'Drive voltage', stat_freq: 'Actuator response', stat_pubs: 'Publications',
+
+        news_title: 'News', news_all: 'Latest publications →',
+        news_1_t: 'New paper published in ACS Applied Polymer Materials',
+        news_1_d: 'T. Ikeda and M. Yoshio, "Fluorinated Glycidyl Triazolyl Polymers Exhibiting Thermally Stable Layered Structures and Sticky Hydrophobic Surfaces," ACS Appl. Polym. Mater. (2026).',
+        news_2_t: 'Two papers published with Dr. Liu',
+        news_2_d: 'C. Liu and M. Yoshio reported electroactive soft actuators using 3D Li-ion-conducting phosphate columnar liquid crystals (STAM) and ion-conductive LC gels (Materials Today Chemistry).',
+        news_3_t: 'Triple awards in 2024',
+        news_3_d: "Prof. Yoshio received the SPSJ Mitsubishi Chemical Award, the NIMS President's Award for Research Encouragement, and the JLCS Paper Award.",
+        news_4_t: 'Cover paper in Adv. Funct. Mater.',
+        news_4_d: 'M. Yoshio, C.-H. Wu, C. Liu. "Mechanically Tough Micellar Cubic Liquid-Crystalline Polymer Electrolytes for Electromechanical Actuators," Adv. Funct. Mater. 34, 2314087 (2024).',
+        news_5_t: 'JST PRESTO project launched',
+        news_5_d: 'Started a new JST PRESTO (Sakigake) research project, "Future mechatronics materials enabled by liquid-crystalline molecular alignment."',
+
+        research_title: 'Research',
+        research_lead: 'We pursue interconnected themes that link molecular design, nanostructure formation, and device function — turning supramolecular self-assembly into working materials.',
+        research_1_tag: 'Theme 01', research_1_t: 'Liquid-Crystalline Ion Conductors',
+        research_1_d: 'Nanosegregated liquid crystals and ionic liquids that form 1D, 2D, and 3D continuous ion-transport pathways for fast and anisotropic conduction.',
+        research_2_tag: 'Theme 02', research_2_t: 'Soft Actuators & Haptic Devices',
+        research_2_d: 'Photopolymerized ionic LC polymer films driven at ≤ 2 V, delivering 100 Hz fast vibration, 5 gf output, and shape-memory function for haptics and soft robotics.',
+        research_3_tag: 'Theme 03', research_3_t: 'Supramolecular Self-Assembly',
+        research_3_d: 'Hydrogen-bonded, ion–dipole, and metal-coordination interactions to build columnar, smectic, cubic, and bicontinuous nanostructures with tailored function.',
+        research_4_tag: 'Theme 04', research_4_t: 'π-Conjugated LC Semiconductors',
+        research_4_d: 'Ferroelectric and photoconductive π-conjugated liquid crystals — including oxadiazole and thiophene-based polycatenars — for photovoltaics and sensors.',
+        research_5_tag: 'Theme 05', research_5_t: 'Li-Ion Conducting Phosphate LCs',
+        research_5_d: 'Phosphate-ester columnar liquid crystals complexed with lithium salts as non-flammable, self-healing electrolyte concepts for next-generation Li batteries.',
+        research_6_tag: 'Theme 06', research_6_t: 'Mechanochromic Luminescence',
+        research_6_d: 'Stimuli-responsive emission of hydrogen-bonded benzodithiophene and guanine–oligothiophene assemblies — toward mechanical sensors and optical memory.',
+
+        pubs_title: 'Selected Publications', pubs_all: 'Full list (Google Scholar / NIMS SAMURAI) →',
+
+        members_title: 'Members',
+        members_pi: 'Principal Investigator',
+        members_postdoc: 'Postdoctoral Researcher',
+        members_join: 'Join Us',
+        pi_name: 'Dr. Masafumi Yoshio (吉尾 正史)',
+        pi_role: "Group Leader, Molecular Mechatronics Group, NIMS<br/>Professor (concurrent), Hokkaido University (NIMS Joint Graduate School)",
+        pi_bio: "Research interests: supramolecules, liquid crystals, nanofibers, ion conductors, organic semiconductors, thermal conductivity, and mechanochromic luminescence. Awards include the SPSJ Mitsubishi Chemical Award (2024), the NIMS President's Award for Research Encouragement (2024), the JLCS Paper Award (2024, 2019), and the SPSJ Hitachi Chemical Award (2012).",
+        pd_name: 'Dr. Chengyang Liu (劉 成洋)',
+        pd_role: 'Postdoctoral Research Fellow, Molecular Mechatronics Group, NIMS',
+        pd_bio: 'Research focus: design of ion-conductive liquid-crystalline polymer composites and phosphate columnar liquid crystals for electromechanical soft actuators and haptic devices. Recent first-author papers in Adv. Funct. Mater., ACS Appl. Mater. Interfaces, Sci. Technol. Adv. Mater., and Materials Today Chemistry.',
+
+        join_phd_tag: 'Ph.D. Course', join_phd_t: 'Graduate Students',
+        join_phd_d: 'Through the NIMS Joint Graduate School with Hokkaido University. Tuition support and research scholarships available for qualified applicants.',
+        join_pd_tag: 'Postdoc', join_pd_t: 'Postdoctoral Fellows',
+        join_pd_d: 'We welcome motivated postdocs with backgrounds in liquid crystals, supramolecular chemistry, polymer science, or device engineering.',
+        join_vis_tag: 'Visiting', join_vis_t: 'Visiting Researchers',
+        join_vis_d: 'Short-term visits and collaborative research are possible. Please contact Prof. Yoshio with a CV and research proposal.',
+
+        contact_title: 'Contact & Access',
+        contact_addr_label: 'Address',
+        contact_addr: 'Molecular Mechatronics Group<br/>Research Center for Macromolecules and Biomaterials<br/>National Institute for Materials Science (NIMS)<br/>1-2-1 Sengen, Tsukuba, Ibaraki 305-0047, Japan',
+        contact_email_label: 'Email',
+        contact_tel_label: 'Phone',
+        contact_links_label: 'External Links',
+        contact_join: 'We welcome inquiries from prospective students, postdoctoral fellows, and visiting researchers. Please email Prof. Yoshio with a CV and a brief statement of research interests.',
+        contact_map_caption: 'NIMS Sengen, Tsukuba · Map © OpenStreetMap',
+
+        footer_about: 'Designing nanostructured liquid crystals and ionic polymer electrolytes for soft actuators, haptic devices, and energy materials.',
+        footer_nav: 'Navigate', footer_contact: 'Contact',
+        footer_addr: 'Molecular Mechatronics Group, NIMS<br/>1-2-1 Sengen, Tsukuba<br/>Ibaraki 305-0047, Japan',
+        footer_credit: 'Designed with care · Built with HTML & Tailwind CSS',
+      },
+      ja: {
+        brand: '吉尾研究室',
+        brand_sub: '分子メカトロニクスG · NIMS',
+        nav_home: 'ホーム', nav_news: 'ニュース', nav_research: '研究',
+        nav_publications: '論文', nav_members: 'メンバー', nav_contact: '連絡先',
+
+        hero_kicker: '物質・材料研究機構 分子メカトロニクスグループ／北海道大学',
+        hero_title:  '液晶ナノ構造のデザインで、<br/>次世代ソフトアクチュエータを拓く。',
+        hero_lead:   '吉尾研究室では、超分子液晶やイオン伝導性高分子電解質を設計し、自己組織化ナノ構造の中をイオンが高速に流れる新しい物質群を創出しています。化学・ソフトマター物理・メカトロニクスの境界領域に立ち、電気駆動ソフトアクチュエータ、触覚デバイス、エネルギー材料の革新を目指します。',
+        hero_cta_research: '研究を見る',
+        hero_cta_contact:  'お問い合わせ',
+
+        about_title: '研究室について',
+        about_p1: '吉尾研究室は、物質・材料研究機構（NIMS）高分子・バイオ材料研究センター 分子メカトロニクスグループとして活動しており、グループリーダーである吉尾正史博士は、北海道大学大学院 総合化学院 物質化学コース（NIMS連係大学院）の教授を兼任しています。',
+        about_p2: 'ナノ相分離自己組織化を活用して、イオン・電子・光の輸送を精密制御する超分子液晶、イオン性高分子電解質、π共役機能性材料を設計しています。基礎的なソフトマター化学と、次世代ソフトアクチュエータ・ハプティクスデバイス・センサ・エネルギーデバイスをつなぐ研究を推進しています。',
+        stat_voltage: '駆動電圧', stat_freq: '応答周波数', stat_pubs: '論文数',
+
+        news_title: 'ニュース', news_all: '論文リストはこちら →',
+        news_1_t: 'ACS Applied Polymer Materials 誌に論文掲載',
+        news_1_d: '池田 大教先生と吉尾による論文「Fluorinated Glycidyl Triazolyl Polymers Exhibiting Thermally Stable Layered Structures and Sticky Hydrophobic Surfaces」が ACS Appl. Polym. Mater. に掲載されました（2026年）。',
+        news_2_t: '劉博士との共同論文2報を発表',
+        news_2_d: 'C. Liu と M. Yoshio による、3次元リチウムイオン伝導性リン酸エステル液晶を用いた電気活性ソフトアクチュエータ（STAM 誌）、およびイオン伝導性液晶ゲル（Materials Today Chemistry 誌）の研究論文を発表しました。',
+        news_3_t: '2024年に3件の受賞',
+        news_3_d: '吉尾教授が高分子学会三菱ケミカル賞、NIMS理事長賞 研究奨励賞、日本液晶学会論文賞を受賞しました。',
+        news_4_t: 'Adv. Funct. Mater. 誌に論文掲載',
+        news_4_d: 'M. Yoshio, C.-H. Wu, C. Liu. "Mechanically Tough Micellar Cubic Liquid-Crystalline Polymer Electrolytes for Electromechanical Actuators", Adv. Funct. Mater. 34, 2314087 (2024).',
+        news_5_t: 'JSTさきがけ研究開始',
+        news_5_d: 'JST 戦略的創造研究推進事業さきがけ「液晶分子配列を生かした未来メカトロニクス材料の創出」プロジェクトを開始しました。',
+
+        research_title: '研究',
+        research_lead: '分子設計・ナノ構造形成・デバイス機能を結ぶ複数のテーマを推進し、超分子の自己組織化を実際に動く機能材料へと展開します。',
+        research_1_tag: 'テーマ 01', research_1_t: '液晶イオン伝導体',
+        research_1_d: 'ナノ相分離液晶とイオン液体を組み合わせ、1次元・2次元・3次元の連続的なイオン伝導パスを形成。高速かつ異方的なイオン輸送を実現します。',
+        research_2_tag: 'テーマ 02', research_2_t: 'ソフトアクチュエータ・触覚デバイス',
+        research_2_d: '光重合したイオン伝導液晶高分子フィルムを ≤ 2 V で駆動し、100 Hz 高速振動・5 gf 高出力・形状記憶機能を実現。触覚提示・ソフトロボットへ展開しています。',
+        research_3_tag: 'テーマ 03', research_3_t: '超分子自己組織化',
+        research_3_d: '水素結合・イオン–双極子相互作用・金属配位を駆使し、カラムナー・スメクチック・キュービック・バイコンティニュアスなどのナノ構造を構築します。',
+        research_4_tag: 'テーマ 04', research_4_t: 'π共役半導体液晶',
+        research_4_d: 'オキサジアゾール・チオフェン系ポリカテナーを含む、強誘電性・光伝導性のπ共役液晶を開発し、光起電力素子やセンサへ応用しています。',
+        research_5_tag: 'テーマ 05', research_5_t: 'リン酸エステル系Liイオン伝導液晶',
+        research_5_d: 'リン酸エステル基を有するカラムナー液晶にリチウム塩を錯化し、不燃性・自己修復性を兼ね備えた次世代リチウム電池電解質コンセプトを提案しています。',
+        research_6_tag: 'テーマ 06', research_6_t: 'メカノクロミック発光',
+        research_6_d: '水素結合性ベンゾジチオフェンやグアニン–オリゴチオフェン共役体の刺激応答発光を活用し、力学センサや光メモリへの展開を進めています。',
+
+        pubs_title: '主な論文', pubs_all: '論文リスト全文（Google Scholar / NIMS SAMURAI）→',
+
+        members_title: 'メンバー',
+        members_pi: '主宰者',
+        members_postdoc: '博士研究員',
+        members_join: '参加希望の方へ',
+        pi_name: '吉尾 正史 博士',
+        pi_role: '物質・材料研究機構 高分子・バイオ材料研究センター 分子メカトロニクスグループ グループリーダー<br/>北海道大学大学院 総合化学院 物質化学コース 教授（NIMS連係大学院）',
+        pi_bio: '専門は超分子・液晶・ナノファイバー・イオン伝導体・有機半導体・熱伝導・メカノクロミック発光。受賞歴：高分子学会三菱ケミカル賞（2024）、NIMS理事長賞研究奨励賞（2024）、日本液晶学会論文賞（2024, 2019）、高分子学会日立化成賞（2012）、東京大学工学部ベストティーチングアワード（2014）など。',
+        pd_name: '劉 成洋 博士',
+        pd_role: '物質・材料研究機構 分子メカトロニクスグループ 博士研究員',
+        pd_bio: '研究テーマ：イオン伝導性液晶／高分子コンポジット、リン酸エステル系カラムナー液晶を活用した電気駆動ソフトアクチュエータと触覚デバイスの開発。Adv. Funct. Mater.、ACS Appl. Mater. Interfaces、Sci. Technol. Adv. Mater.、Materials Today Chemistry 等に筆頭著者論文を発表。',
+
+        join_phd_tag: '博士課程', join_phd_t: '大学院生',
+        join_phd_d: 'NIMS と北海道大学による連係大学院制度を通じて受入れを行っています。授業料支援・研究奨学金制度をご利用いただけます。',
+        join_pd_tag: 'ポスドク', join_pd_t: '博士研究員',
+        join_pd_d: '液晶、超分子化学、高分子科学、デバイス工学等にバックグラウンドを持つ意欲ある研究者の応募を歓迎します。',
+        join_vis_tag: '訪問研究', join_vis_t: '訪問研究員',
+        join_vis_d: '短期訪問・共同研究も可能です。CV と研究提案を添えて吉尾教授までご連絡ください。',
+
+        contact_title: '連絡先・アクセス',
+        contact_addr_label: '所在地',
+        contact_addr: '物質・材料研究機構（NIMS）<br/>高分子・バイオ材料研究センター 分子メカトロニクスグループ<br/>〒305-0047 茨城県つくば市千現1-2-1',
+        contact_email_label: 'メール',
+        contact_tel_label: '電話',
+        contact_links_label: '関連リンク',
+        contact_join: '進学・滞在を希望される学生、博士研究員、訪問研究者の方々からのお問い合わせを歓迎します。CV と研究関心の概要を添えて、吉尾教授まで電子メールでご連絡ください。',
+        contact_map_caption: 'NIMS 千現地区（つくば市）· 地図 © OpenStreetMap',
+
+        footer_about: 'ナノ構造化液晶とイオン性高分子電解質の設計を通じて、ソフトアクチュエータ・触覚デバイス・エネルギー材料の革新を進めています。',
+        footer_nav: 'ナビゲーション', footer_contact: '連絡先',
+        footer_addr: '分子メカトロニクスG, NIMS<br/>〒305-0047 茨城県つくば市千現1-2-1',
+        footer_credit: 'Designed with care · HTML & Tailwind CSS',
+      }
+    };
+
+    /* ---------- Language switching ---------- */
+    let currentLang = localStorage.getItem('yoshio_lang') || 'en';
+
+    function applyLang(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang === 'ja' ? 'ja' : 'en';
+      localStorage.setItem('yoshio_lang', lang);
+
+      const dict = I18N[lang] || I18N.en;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[key] !== undefined) el.innerHTML = dict[key];
+      });
+
+      const enBtn = document.getElementById('lang-en');
+      const jpBtn = document.getElementById('lang-jp');
+      enBtn.classList.toggle('bg-academic-700', lang === 'en');
+      enBtn.classList.toggle('text-white',      lang === 'en');
+      enBtn.classList.toggle('text-academic-800', lang !== 'en');
+      jpBtn.classList.toggle('bg-academic-700', lang === 'ja');
+      jpBtn.classList.toggle('text-white',      lang === 'ja');
+      jpBtn.classList.toggle('text-academic-800', lang !== 'ja');
+    }
+
+    document.getElementById('lang-en').addEventListener('click', () => applyLang('en'));
+    document.getElementById('lang-jp').addEventListener('click', () => applyLang('ja'));
+
+    /* ---------- Mobile menu ---------- */
+    const menuBtn  = document.getElementById('menu-toggle');
+    const menu     = document.getElementById('mobile-menu');
+    const iconOpen = document.getElementById('icon-open');
+    const iconClose= document.getElementById('icon-close');
+    menuBtn.addEventListener('click', () => {
+      const isOpen = menu.classList.toggle('open');
+      iconOpen.classList.toggle('hidden', isOpen);
+      iconClose.classList.toggle('hidden', !isOpen);
+    });
+    document.querySelectorAll('.mobile-link').forEach(a => {
+      a.addEventListener('click', () => {
+        menu.classList.remove('open');
+        iconOpen.classList.remove('hidden');
+        iconClose.classList.add('hidden');
+      });
+    });
+
+    /* Close mobile menu when resizing up to desktop */
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 1024 && menu.classList.contains('open')) {
+        menu.classList.remove('open');
+        iconOpen.classList.remove('hidden');
+        iconClose.classList.add('hidden');
+      }
+    });
+
+    /* ---------- Navbar scroll shadow ---------- */
+    const navbar = document.getElementById('navbar');
+    const onScroll = () => navbar.classList.toggle('scrolled', window.scrollY > 8);
+    document.addEventListener('scroll', onScroll, { passive: true });
+
+    /* ---------- Publications year tabs ---------- */
+    const pubTabs    = document.querySelectorAll('.pub-tab');
+    const pubGroups  = document.querySelectorAll('.pub-year');
+    function setPubYear(year) {
+      pubTabs.forEach(t => {
+        const active = t.dataset.year === year;
+        t.classList.toggle('bg-academic-700', active);
+        t.classList.toggle('text-white',      active);
+        t.classList.toggle('border-academic-700', active);
+      });
+      pubGroups.forEach(g => g.classList.toggle('hidden', g.dataset.year !== year));
+    }
+    pubTabs.forEach(t => t.addEventListener('click', () => setPubYear(t.dataset.year)));
+    setPubYear('2025');
+
+    /* ---------- Year ---------- */
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    /* ---------- Init ---------- */
+    applyLang(currentLang);
+    onScroll();
+  </script>
+</body>
+</html>
