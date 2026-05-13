@@ -1,105 +1,124 @@
-# Each entry is a single publication. The website groups them by year automatically.
-# Wrap lab-member authors with **double asterisks** to bold them on the site.
 items:
   - year: 2026
-    authors: "T. Ikeda, **M. Yoshio**"
-    title: "Fluorinated Glycidyl Triazolyl Polymers Exhibiting Thermally Stable Layered Structures and Sticky Hydrophobic Surfaces"
-    journal: "ACS Appl. Polym. Mater."
+    authors: T. Ikeda, **M. Yoshio**
+    title: Fluorinated Glycidyl Triazolyl Polymers Exhibiting Thermally Stable
+      Layered Structures and Sticky Hydrophobic Surfaces
+    journal: ACS Appl. Polym. Mater.
     volume: "8"
-    pages: "3023–3032"
-    doi: "10.1021/acsapm.5c04519"
-
+    pages: 3023–3032
+    doi: 10.1021/acsapm.5c04519
   - year: 2025
     authors: "**C. Liu**, **M. Yoshio**"
-    title: "Electroactive soft actuators utilizing PEDOT:PSS and 3D lithium-ion-conducting phosphate columnar liquid crystals embedded in a porous polyethylene membrane"
-    journal: "Sci. Technol. Adv. Mater."
+    title: Electroactive soft actuators utilizing PEDOT:PSS and 3D
+      lithium-ion-conducting phosphate columnar liquid crystals embedded in a
+      porous polyethylene membrane
+    journal: Sci. Technol. Adv. Mater.
     volume: "26"
     pages: "2475738"
-    doi: "10.1080/14686996.2025.2475738"
+    doi: 10.1080/14686996.2025.2475738
   - year: 2025
     authors: "**C. Liu**, **M. Yoshio**"
-    title: "Ion-conductive liquid-crystalline gels for enhanced soft actuator applications"
-    journal: "Materials Today Chemistry"
+    title: Ion-conductive liquid-crystalline gels for enhanced soft actuator
+      applications
+    journal: Materials Today Chemistry
     volume: "46"
     pages: "102715"
-    doi: "10.1016/j.mtchem.2025.102715"
-
+    doi: 10.1016/j.mtchem.2025.102715
   - year: 2024
     authors: "**M. Yoshio**, C.-H. Wu, **C. Liu**"
-    title: "Mechanically Tough Micellar Cubic Liquid-Crystalline Polymer Electrolytes for Electromechanical Actuators"
-    journal: "Adv. Funct. Mater."
+    title: Mechanically Tough Micellar Cubic Liquid-Crystalline Polymer Electrolytes
+      for Electromechanical Actuators
+    journal: Adv. Funct. Mater.
     volume: "34"
     pages: "2314087"
-    doi: "10.1002/adfm.202314087"
+    doi: 10.1002/adfm.202314087
   - year: 2024
     authors: "**C. Liu**, **M. Yoshio**"
-    title: "Ionic Liquid Crystal–Polymer Composite Electromechanical Actuators: Design of Two-Dimensional Molecular Assemblies for Efficient Ion Transport and Effect of Electrodes on Actuator Performance"
-    journal: "ACS Appl. Mater. Interfaces"
+    title: "Ionic Liquid Crystal–Polymer Composite Electromechanical Actuators:
+      Design of Two-Dimensional Molecular Assemblies for Efficient Ion Transport
+      and Effect of Electrodes on Actuator Performance"
+    journal: ACS Appl. Mater. Interfaces
     volume: "16"
-    pages: "27750–27760"
-    doi: "10.1021/acsami.4c03821"
+    pages: 27750–27760
+    doi: 10.1021/acsami.4c03821
   - year: 2024
-    authors: "K. Sakamoto, T. Yasuda, T. Minari, **M. Yoshio**, J. Kuwabara, M. Takeuchi"
-    title: "Overestimation of Operational Stability in Polymer-Based Organic Field-Effect Transistors Caused by Contact Resistance"
-    journal: "ACS Appl. Mater. Interfaces"
+    authors: K. Sakamoto, T. Yasuda, T. Minari, **M. Yoshio**, J. Kuwabara, M. Takeuchi
+    title: Overestimation of Operational Stability in Polymer-Based Organic
+      Field-Effect Transistors Caused by Contact Resistance
+    journal: ACS Appl. Mater. Interfaces
     volume: "16"
-    pages: "68081–68090"
-    doi: "10.1021/acsami.4c15666"
+    pages: 68081–68090
+    doi: 10.1021/acsami.4c15666
   - year: 2024
-    authors: "M. Alaasar, A. F. Darweesh, Y. Cao, K. Iakoubovskii, **M. Yoshio**"
-    title: "Electric field- and light-responsive oxadiazole bent-core polycatenar liquid crystals"
-    journal: "J. Mater. Chem. C"
+    authors: M. Alaasar, A. F. Darweesh, Y. Cao, K. Iakoubovskii, **M. Yoshio**
+    title: Electric field- and light-responsive oxadiazole bent-core polycatenar
+      liquid crystals
+    journal: J. Mater. Chem. C
     volume: "12"
-    pages: "1523–1532"
-    doi: "10.1039/d3tc04349e"
-
+    pages: 1523–1532
+    doi: 10.1039/d3tc04349e
   - year: 2023
     authors: "**C. Liu**, S. Cao, **M. Yoshio**"
-    title: "Ion-Conducting Non-Flammable Liquid Crystal–Polymer Composites for High-Frequency Soft Actuators"
-    journal: "Adv. Funct. Mater."
+    title: Ion-Conducting Non-Flammable Liquid Crystal–Polymer Composites for
+      High-Frequency Soft Actuators
+    journal: Adv. Funct. Mater.
     volume: "33"
     pages: "2300538"
-    doi: "10.1002/adfm.202300538"
+    doi: 10.1002/adfm.202300538
   - year: 2023
-    authors: "S. Suwa, **C. Liu**, **M. Yoshio**"
-    title: "Anisotropic ion-conductive supramolecular columnar liquid crystals composed of a benzonitrile derivative and ionic liquids"
-    journal: "Materials Today Chemistry"
+    authors: S. Suwa, **C. Liu**, **M. Yoshio**
+    title: Anisotropic ion-conductive supramolecular columnar liquid crystals
+      composed of a benzonitrile derivative and ionic liquids
+    journal: Materials Today Chemistry
     volume: "34"
     pages: "101829"
-    doi: "10.1016/j.mtchem.2023.101829"
+    doi: 10.1016/j.mtchem.2023.101829
   - year: 2023
-    authors: "S. Cao, **C. Liu**, **M. Yoshio**"
-    title: "Ionic electroactive PEDOT:PSS/liquid-crystalline polymer electrolyte actuators"
-    journal: "Materials Chemistry Frontiers"
+    authors: S. Cao, **C. Liu**, **M. Yoshio**
+    title: Ionic electroactive PEDOT:PSS/liquid-crystalline polymer electrolyte
+      actuators
+    journal: Materials Chemistry Frontiers
     volume: "7"
-    pages: "2828–2838"
-    doi: "10.1039/d3qm00192j"
+    pages: 2828–2838
+    doi: 10.1039/d3qm00192j
   - year: 2023
-    authors: "C.-H. Wu, W. Meng, K. Iakoubovskii, **M. Yoshio**"
-    title: "Photocured Liquid-Crystalline Polymer Electrolytes with 3D Ion Transport Pathways for Electromechanical Actuators"
-    journal: "ACS Appl. Mater. Interfaces"
+    authors: C.-H. Wu, W. Meng, K. Iakoubovskii, **M. Yoshio**
+    title: Photocured Liquid-Crystalline Polymer Electrolytes with 3D Ion Transport
+      Pathways for Electromechanical Actuators
+    journal: ACS Appl. Mater. Interfaces
     volume: "15"
-    pages: "4495–4504"
-    doi: "10.1021/acsami.2c19382"
-
+    pages: 4495–4504
+    doi: 10.1021/acsami.2c19382
   - year: 2022
-    authors: "K. Iakoubovskii, **M. Yoshio**"
-    title: "Room-Temperature Zwitterionic Liquid Crystals for Mechanical Actuators"
-    journal: "ACS Materials Au"
+    authors: K. Iakoubovskii, **M. Yoshio**
+    title: Room-Temperature Zwitterionic Liquid Crystals for Mechanical Actuators
+    journal: ACS Materials Au
     volume: "2"
-    pages: "686–689"
-    doi: "10.1021/acsmaterialsau.2c00053"
+    pages: 686–689
+    doi: 10.1021/acsmaterialsau.2c00053
   - year: 2022
-    authors: "S. Cao, J. Aimi, **M. Yoshio**"
-    title: "Electroactive Soft Actuators Based on Columnar Ionic Liquid Crystal/Polymer Composite Membrane Electrolytes Forming 3D Continuous Ionic Channels"
-    journal: "ACS Appl. Mater. Interfaces"
+    authors: S. Cao, J. Aimi, **M. Yoshio**
+    title: Electroactive Soft Actuators Based on Columnar Ionic Liquid
+      Crystal/Polymer Composite Membrane Electrolytes Forming 3D Continuous
+      Ionic Channels
+    journal: ACS Appl. Mater. Interfaces
     volume: "14"
-    pages: "43701–43710"
-    doi: "10.1021/acsami.2c11029"
+    pages: 43701–43710
+    doi: 10.1021/acsami.2c11029
   - year: 2022
-    authors: "C.-H. Wu, W. Meng, **M. Yoshio**"
-    title: "Low-Voltage-Driven Actuators Using Photo-Cross-Linked Ionic Columnar Liquid-Crystalline Polymer Films"
-    journal: "ACS Materials Letters"
+    authors: C.-H. Wu, W. Meng, **M. Yoshio**
+    title: Low-Voltage-Driven Actuators Using Photo-Cross-Linked Ionic Columnar
+      Liquid-Crystalline Polymer Films
+    journal: ACS Materials Letters
     volume: "4"
-    pages: "153–158"
-    doi: "10.1021/acsmaterialslett.1c00565"
+    pages: 153–158
+    doi: 10.1021/acsmaterialslett.1c00565
+  - year: 2026
+    doi: 10.1002/adfm.202525338
+    journal: Advanced Functional Materials
+    volume: 36 [22]
+    pages: e25338
+    title: Synergistically Coordinated Ni Complex Ink for Low‐Temperature and Highly
+      Reliable Printed Electronics
+    authors: Lingying Li, Shunto Arai, Mayumi Kumada, Takeshi Yasuda, Kenji
+      Sakamoto, Kohsaku Kawakami, Masafumi Yoshio, Takeo Minari
