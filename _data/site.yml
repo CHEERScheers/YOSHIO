@@ -45,7 +45,7 @@ stats:
   - value: LC SC
     label_en: Electron Transport
     label_ja: 電子伝導
-  - value: 100+
+  - value: 120+
     label_en: Publications
     label_ja: 論文数
 contact:
