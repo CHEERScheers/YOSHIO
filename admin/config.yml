@@ -168,11 +168,29 @@ collections:
             fields:
               - { label: "Tag (EN, e.g. Theme 01)", name: "tag_en", widget: "string" }
               - { label: "Tag (JA)",                name: "tag_ja", widget: "string" }
+              - { label: "Slug (URL fragment for deep link, e.g. liquid-crystalline-ion-conductors)", name: "slug", widget: "string", required: false, hint: "Lowercase, hyphens only. Used in #research/<slug> links." }
               - { label: "Title (EN)",              name: "title_en", widget: "string" }
               - { label: "Title (JA)",              name: "title_ja", widget: "string" }
-              - { label: "Description (EN)",        name: "description_en", widget: "text" }
-              - { label: "Description (JA)",        name: "description_ja", widget: "text" }
-              - { label: "Image", name: "image", widget: "image", required: false, hint: "Upload from your computer — saved to /assets/images/" }
+              - { label: "Short description (EN, shown on card)", name: "description_en", widget: "text" }
+              - { label: "Short description (JA, shown on card)", name: "description_ja", widget: "text" }
+              - { label: "Cover image", name: "image", widget: "image", required: false, hint: "Upload from your computer — saved to /assets/images/" }
+              - { label: "Full details (EN, Markdown supported)", name: "details_en", widget: "markdown", required: false, hint: "Long-form content shown inside the popup when the card is clicked. Use ### for headings, **bold**, lists, etc." }
+              - { label: "Full details (JA, Markdown supported)", name: "details_ja", widget: "markdown", required: false }
+              - label: "Gallery (extra figures shown in the popup)"
+                name: "gallery"
+                widget: "list"
+                required: false
+                summary: "{{fields.caption_en}}"
+                fields:
+                  - { label: "Image",       name: "image",       widget: "image" }
+                  - { label: "Caption (EN)", name: "caption_en", widget: "string", required: false }
+                  - { label: "Caption (JA)", name: "caption_ja", widget: "string", required: false }
+              - label: "Related paper DOIs (one per line)"
+                name: "related_paper_dois"
+                widget: "list"
+                required: false
+                field: { label: "DOI (e.g. 10.1002/adfm.202300538)", name: "doi", widget: "string" }
+                hint: "Links auto-resolve to https://doi.org/<DOI>"
 
   # ============================================================
   # 4. Publications

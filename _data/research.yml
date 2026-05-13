@@ -2,9 +2,21 @@ lead_en: We pursue interconnected themes that link molecular design,
   nanostructure formation, and device function — turning supramolecular
   self-assembly into working materials.
 lead_ja: 分子設計・ナノ構造形成・デバイス機能を結ぶ複数のテーマを推進し、超分子の自己組織化を実際に動く機能材料へと展開します。
+
+# Each theme:
+#   - tag_en/ja      Short tag shown on the card (e.g. "Theme 01")
+#   - slug           URL-safe ID, used in #research/<slug> deep links
+#   - title_en/ja    Theme title
+#   - description_en/ja  Short summary, shown on the card
+#   - image          Hero image (uploads go to /assets/images/)
+#   - details_en/ja  Long-form content shown inside the modal. Markdown supported.
+#   - gallery        Optional list of additional figures with captions
+#   - related_paper_dois  Optional list of DOIs that highlight this theme
+
 themes:
   - tag_en: Theme 01
     tag_ja: テーマ 01
+    slug: liquid-crystalline-ion-conductors
     title_en: Liquid-Crystalline Ion Conductors
     title_ja: 液晶イオン伝導体
     description_en: Nanosegregated liquid crystals and ionic liquids that form 1D,
@@ -12,8 +24,40 @@ themes:
       conduction.
     description_ja: ナノ相分離液晶とイオン液体を組み合わせ、1次元・2次元・3次元の連続的なイオン伝導パスを形成。高速かつ異方的なイオン輸送を実現します。
     image: ""
+    details_en: |
+      ### Background
+      Conventional ion-conducting polymers transport ions through disordered amorphous regions, which limits speed and directionality. We exploit the **molecular alignment of liquid crystals (LCs)** to build ion-transport channels with controlled dimensionality.
+
+      ### Our approach
+      We design amphiphilic ionic mesogens that nanophase-separate into ordered ionic domains within an insulating hydrophobic matrix. Depending on the molecular geometry, the ionic domains form:
+
+      - **1D columnar pathways** (rod-like channels through the bulk)
+      - **2D layered pathways** (smectic ion-conducting sheets)
+      - **3D bicontinuous cubic pathways** (alignment-free, isotropic conduction)
+
+      ### Why it matters
+      Aligning the LC director with macroscopic fields lets us route ion flow anisotropically — a degree of control that simple polymer electrolytes cannot offer. Photopolymerization in the LC state then locks the nanostructure into mechanically robust, free-standing membranes.
+    details_ja: |
+      ### 背景
+      従来のイオン伝導性高分子はアモルファス領域を介してイオンを輸送するため、速度・方向性に限界があります。本研究では**液晶（LC）の分子配列**を利用し、次元性を制御したイオン伝導パスを構築します。
+
+      ### アプローチ
+      両親媒性のイオン性メソゲンを設計し、絶縁性の疎水マトリックス中にイオンドメインをナノ相分離させます。分子幾何に応じて以下を形成します。
+
+      - **1次元カラムナーパス**（ロッド状のチャネル）
+      - **2次元層状パス**（スメクチック型イオン伝導シート）
+      - **3次元バイコンティニュアスキュービックパス**（配向不要・等方的伝導）
+
+      ### 意義
+      LCディレクターをマクロな外場で配向することで、イオン流を異方的に制御できます。液晶状態で光重合することで、ナノ構造を保ったまま機械的に堅牢な自立膜が得られます。
+    gallery: []
+    related_paper_dois:
+      - "10.1038/natrevmats.2017.1"
+      - "10.1016/j.mtchem.2023.101829"
+
   - tag_en: Theme 02
     tag_ja: テーマ 02
+    slug: soft-actuators-haptic-devices
     title_en: Soft Actuators & Haptic Devices
     title_ja: ソフトアクチュエータ・触覚デバイス
     description_en: Photopolymerized ionic LC polymer films driven at ≤ 2 V,
@@ -22,8 +66,39 @@ themes:
     description_ja: 光重合したイオン伝導液晶高分子フィルムを ≤ 2 V で駆動し、100 Hz 高速振動・5 gf
       高出力・形状記憶機能を実現。触覚提示・ソフトロボットへ展開しています。
     image: /assets/images/4b682700-3f56-416c-aa5c-d20ff1d121fc.png
+    details_en: |
+      ### Device architecture
+      A nanostructured ionic LC polymer membrane is sandwiched between two PEDOT:PSS conducting polymer electrodes. Applying a small DC bias drives anions and cations to opposite electrodes; the resulting volume mismatch bends the trilayer toward the cathode.
+
+      ### Performance benchmarks
+      - **Drive voltage ≤ 2 V** (safe, battery-compatible)
+      - **Vibration up to 100 Hz** with large bending strain
+      - **Output force ~5 gf** in a 10 μm-thick film
+      - **Shape-memory** function — the bent state is retained after the field is removed
+
+      ### Applications
+      We have built a miniature soft gripper that gently grasps fragile objects, and ring-type haptic elements that deliver tactile feedback in VR. Future targets include navigation aids for visually-impaired users and medical haptic instruments.
+    details_ja: |
+      ### デバイス構造
+      ナノ構造化したイオン伝導液晶高分子膜を2枚のPEDOT:PSS導電性高分子電極で挟み、直流電圧を印加することで陰イオン・陽イオンが反対側電極へ移動し、その体積差により三層素子が屈曲します。
+
+      ### 性能指標
+      - **駆動電圧 ≤ 2 V**（安全・電池駆動可）
+      - **100 Hzまでの高速振動**と大きな屈曲ひずみ
+      - **約 5 gf の出力**（10 μm厚フィルム）
+      - **形状記憶機能** — 電圧を切っても屈曲状態を保持
+
+      ### 応用展開
+      壊れやすい物体を柔らかく掴む微小ピンセット、VR用リング型触覚素子などを実証済み。視覚障害者歩行支援センサーや医療触覚機器への展開を目指しています。
+    gallery: []
+    related_paper_dois:
+      - "10.1002/adfm.202300538"
+      - "10.1002/adfm.202314087"
+      - "10.1021/acsmaterialslett.1c00565"
+
   - tag_en: Theme 03
     tag_ja: テーマ 03
+    slug: supramolecular-self-assembly
     title_en: Supramolecular Self-Assembly
     title_ja: 超分子自己組織化
     description_en: Hydrogen-bonded, ion–dipole, and metal-coordination interactions
@@ -31,8 +106,34 @@ themes:
       tailored function.
     description_ja: 水素結合・イオン–双極子相互作用・金属配位を駆使し、カラムナー・スメクチック・キュービック・バイコンティニュアスなどのナノ構造を構築します。
     image: /assets/images/362632ff-3f17-46f5-88b7-5ff0cee2d122.png
+    details_en: |
+      ### Design principles
+      We engineer non-covalent interactions to drive predictable self-assembly:
+
+      - **Hydrogen bonding** (e.g. benzonitrile–ionic liquid, guanine–oligothiophene)
+      - **Ion–dipole interactions** for ionic columnar phases
+      - **Metal coordination** for stimuli-responsive supramolecular networks
+
+      ### Emergent function
+      These assemblies exhibit self-healing, shape-memory, and stimuli-responsive emission — properties that emerge from the dynamic, reversible nature of the interactions. Combined with photopolymerization, we lock the nanostructure into a robust polymer matrix while preserving its functional architecture.
+    details_ja: |
+      ### 設計指針
+      非共有結合性相互作用を活用し、予測可能な自己組織化を実現します。
+
+      - **水素結合**（ベンゾニトリル–イオン液体、グアニン–オリゴチオフェン等）
+      - **イオン–双極子相互作用**によるイオン性カラムナー相
+      - **金属配位**による刺激応答性超分子ネットワーク
+
+      ### 創発機能
+      これら集合体は自己修復性・形状記憶性・刺激応答発光など、可逆な分子間相互作用に由来する機能を発現します。光重合と組み合わせることで、ナノ構造を保ったまま機械的に頑健な高分子マトリックスへ転写できます。
+    gallery: []
+    related_paper_dois:
+      - "10.1039/d0sc06676a"
+      - "10.1002/anie.201707740"
+
   - tag_en: Theme 04
     tag_ja: テーマ 04
+    slug: pi-conjugated-lc-semiconductors
     title_en: π-Conjugated LC Semiconductors
     title_ja: π共役半導体液晶
     description_en: Ferroelectric and photoconductive π-conjugated liquid crystals —
@@ -40,8 +141,39 @@ themes:
       and sensors.
     description_ja: オキサジアゾール・チオフェン系ポリカテナーを含む、強誘電性・光伝導性のπ共役液晶を開発し、光起電力素子やセンサへ応用しています。
     image: /assets/images/theme-04.jpg
+    details_en: |
+      ### Material family
+      Bent-core and rod-like polycatenars built around **oxadiazole** and **thiophene** π-systems. Their hierarchical assembly produces columnar mesophases with high charge-carrier mobility along the column axis.
+
+      ### Properties
+      - **Ferroelectric switching** in binary chiral mixtures
+      - **Photoconductivity** with response across visible wavelengths
+      - **Field- and light-responsive** mesophase transitions
+      - **Tunable luminescence** through co-assembly with ionic liquids
+
+      ### Targets
+      Bulk photovoltaic effect, ferroelectric memory, and stimuli-responsive optoelectronic sensors.
+    details_ja: |
+      ### 物質群
+      **オキサジアゾール**および**チオフェン**π系を骨格とするベントコア／ロッド型ポリカテナー。階層的自己組織化によりカラムナー相を形成し、カラム軸方向に高いキャリア移動度を示します。
+
+      ### 物性
+      - 二成分系キラル混合物における**強誘電性スイッチング**
+      - 可視域全体に応答する**光伝導性**
+      - **電場・光応答性**の相転移
+      - イオン液体との共組織化による**発光色チューニング**
+
+      ### 応用ターゲット
+      バルク光起電力効果、強誘電メモリ、刺激応答型オプトエレクトロニクスセンサ。
+    gallery: []
+    related_paper_dois:
+      - "10.1039/d3tc04349e"
+      - "10.1039/d3cc01797d"
+      - "10.1021/acsami.0c17717"
+
   - tag_en: Theme 05
     tag_ja: テーマ 05
+    slug: li-ion-phosphate-liquid-crystals
     title_en: Li-Ion Conducting Phosphate LCs
     title_ja: リン酸エステル系Liイオン伝導液晶
     description_en: Phosphate-ester columnar liquid crystals complexed with lithium
@@ -49,8 +181,41 @@ themes:
       next-generation Li batteries.
     description_ja: リン酸エステル基を有するカラムナー液晶にリチウム塩を錯化し、不燃性・自己修復性を兼ね備えた次世代リチウム電池電解質コンセプトを提案しています。
     image: /assets/images/selfheal.png
+    details_en: |
+      ### Motivation
+      Conventional Li-ion battery electrolytes use flammable organic carbonates. We seek **intrinsically safer** solid-state alternatives that retain high room-temperature ionic conductivity.
+
+      ### Approach
+      Wedge-shaped phosphate-ester mesogens self-assemble into columnar liquid crystals whose central phosphate channel solvates Li⁺ via ion–dipole interactions. The resulting 3D-connected ionic highways enable:
+
+      - **High room-temperature Li⁺ conductivity** without organic solvents
+      - **Non-flammability** thanks to the phosphate backbone
+      - **Anchoring** of the ionic channel into a porous polyethylene membrane to form a free-standing electrolyte
+
+      ### Recent results
+      Liu & Yoshio (2025) demonstrated electroactive soft actuators built from this electrolyte — proof that the same chemistry serves both batteries and mechatronics.
+    details_ja: |
+      ### 動機
+      従来のリチウムイオン電池電解質は可燃性の有機カーボネートを用います。本研究では**本質的に安全**な固体電解質を、室温で高いイオン伝導度を保ったまま実現することを目指します。
+
+      ### アプローチ
+      楔形リン酸エステルメソゲンがカラムナー液晶を形成し、リン酸基中心にLi⁺をイオン–双極子相互作用で溶媒和。三次元連結したイオンハイウェイにより以下を実現します。
+
+      - 有機溶媒なしでの**室温高Li⁺伝導**
+      - リン酸骨格に由来する**不燃性**
+      - 多孔性ポリエチレン膜への充填により**自立電解質膜**化
+
+      ### 最近の成果
+      Liu & Yoshio (2025) は本電解質を用いた電気活性ソフトアクチュエータを実証——同じ化学系が電池とメカトロニクス双方に展開可能であることを示しました。
+    gallery: []
+    related_paper_dois:
+      - "10.1080/14686996.2025.2475738"
+      - "10.1016/j.mtchem.2025.102715"
+      - "10.1021/acsomega.7b01503"
+
   - tag_en: Theme 06
     tag_ja: テーマ 06
+    slug: mechanochromic-luminescence
     title_en: Mechanochromic Luminescence
     title_ja: メカノクロミック発光
     description_en: Stimuli-responsive emission of hydrogen-bonded benzodithiophene
@@ -58,3 +223,29 @@ themes:
       optical memory.
     description_ja: 水素結合性ベンゾジチオフェンやグアニン–オリゴチオフェン共役体の刺激応答発光を活用し、力学センサや光メモリへの展開を進めています。
     image: /assets/images/6.png
+    details_en: |
+      ### Concept
+      Certain π-conjugated molecules dramatically change their emission color when mechanically ground or thermally annealed — a property called **mechanofluorochromism**. We design hydrogen-bonded LC assemblies that amplify this effect through cooperative phase transitions.
+
+      ### Material highlights
+      - **Benzodithiophene catenars** showing reversible mechano- and thermo-fluorochromism
+      - **Guanine–oligothiophene conjugates** with ion-responsive emission
+      - Multi-color photoluminescence tunable through co-assembly with ionic liquids
+
+      ### Use cases
+      Mechanical sensing, rewritable optical memory, and security inks where local mechanical history is encoded as color information.
+    details_ja: |
+      ### コンセプト
+      一部のπ共役分子は機械的粉砕や熱処理により発光色が大きく変化します（**メカノフルオロクロミズム**）。本研究では水素結合性液晶集合体を設計し、協同的相転移を介してこの効果を増幅します。
+
+      ### 物質ハイライト
+      - 可逆的メカノ／サーモフルオロクロミズムを示す**ベンゾジチオフェンカテナー**
+      - イオン応答発光を示す**グアニン–オリゴチオフェン共役体**
+      - イオン液体との共組織化による多色発光チューニング
+
+      ### 応用例
+      力学センサ、書換可能な光メモリ、機械的履歴を色情報として記録するセキュリティインク等。
+    gallery: []
+    related_paper_dois:
+      - "10.1002/cphc.201901004"
+      - "10.1039/c7sc03764c"

@@ -9,6 +9,7 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -91,6 +92,57 @@
     /* Loading skeleton */
     .skeleton { background: linear-gradient(90deg, #eef2f8 25%, #f8fafc 50%, #eef2f8 75%); background-size: 200% 100%; animation: shimmer 1.2s infinite; border-radius: 6px; }
     @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+    /* Clickable research card */
+    .research-card { cursor: pointer; position: relative; }
+    .research-card .read-more {
+      position: absolute; right: 14px; bottom: 14px;
+      width: 36px; height: 36px; border-radius: 9999px;
+      background: #1f3c6b; color: white; display: grid; place-items: center;
+      transform: translateY(8px); opacity: 0; transition: all .3s ease;
+    }
+    .research-card:hover .read-more { transform: translateY(0); opacity: 1; }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed; inset: 0; background: rgba(8, 19, 42, 0.55);
+      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+      z-index: 100; display: none; align-items: flex-start; justify-content: center;
+      padding: 24px 12px; overflow-y: auto;
+    }
+    .modal-backdrop.open { display: flex; animation: fadeIn .25s ease; }
+    @keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
+    .modal-panel {
+      background: white; border-radius: 16px; width: 100%; max-width: 880px;
+      box-shadow: 0 40px 80px -20px rgba(15, 31, 58, 0.45);
+      animation: slideUp .3s ease;
+      overflow: hidden; margin: auto;
+    }
+    @keyframes slideUp { from { transform: translateY(20px); opacity: 0 } to { transform: translateY(0); opacity: 1 } }
+    .modal-close {
+      position: absolute; top: 18px; right: 18px;
+      width: 38px; height: 38px; border-radius: 9999px;
+      background: rgba(255,255,255,0.9); color: #1f3c6b;
+      display: grid; place-items: center; border: 1px solid #dbe5f2;
+      box-shadow: 0 4px 12px -4px rgba(15,31,58,0.25);
+      transition: transform .2s ease;
+    }
+    .modal-close:hover { transform: rotate(90deg); background: white; }
+
+    /* Markdown rendering inside modal */
+    .prose-lab h3 { font-size: 1.1rem; font-weight: 600; color: #1f3c6b; margin-top: 1.4em; margin-bottom: 0.5em; }
+    .prose-lab h4 { font-size: 1rem;   font-weight: 600; color: #284c85; margin-top: 1.2em; margin-bottom: 0.4em; }
+    .prose-lab p  { margin: 0.6em 0; line-height: 1.7; color: #1f3c6b; }
+    .prose-lab ul { list-style: disc; padding-left: 1.4em; margin: 0.6em 0; }
+    .prose-lab ol { list-style: decimal; padding-left: 1.4em; margin: 0.6em 0; }
+    .prose-lab li { margin: 0.25em 0; line-height: 1.6; color: #1f3c6b; }
+    .prose-lab strong { color: #0f1f3a; font-weight: 600; }
+    .prose-lab a { color: #284c85; text-decoration: underline; text-underline-offset: 2px; }
+    .prose-lab a:hover { color: #1f3c6b; }
+
+    @media (max-width: 640px) {
+      .modal-panel { border-radius: 12px; }
+    }
   </style>
 </head>
 
@@ -263,6 +315,22 @@
     </div>
   </section>
 
+  <!-- ==================== RESEARCH MODAL ==================== -->
+  <div id="theme-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="theme-modal-title" tabindex="-1">
+    <div class="modal-panel relative">
+      <button id="theme-modal-close" class="modal-close" aria-label="Close"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 6l12 12M18 6L6 18"/></svg></button>
+      <div id="theme-modal-hero" class="w-full h-56 sm:h-72 img-placeholder bg-cover bg-center"></div>
+      <div class="p-6 sm:p-8 md:p-10">
+        <div id="theme-modal-tag"   class="text-xs font-semibold tracking-wider text-academic-600 uppercase"></div>
+        <h2 id="theme-modal-title"  class="text-2xl sm:text-3xl font-semibold text-academic-900 mt-1"></h2>
+        <p  id="theme-modal-lead"   class="text-academic-700 mt-3 leading-relaxed"></p>
+        <div id="theme-modal-body"  class="prose-lab mt-6"></div>
+        <div id="theme-modal-gallery" class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+        <div id="theme-modal-papers"  class="mt-8"></div>
+      </div>
+    </div>
+  </div>
+
   <!-- ==================== FOOTER ==================== -->
   <footer class="bg-academic-900 text-academic-100">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-12 grid md:grid-cols-3 gap-8 sm:gap-10">
@@ -416,12 +484,20 @@
         </div>`).join('') || '<p class="text-academic-500 italic">No news yet.</p>';
     }
 
+    function slugify(s) {
+      return String(s || '').toLowerCase().trim()
+        .replace(/[^\w\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-');
+    }
+    function themeSlug(t) { return t.slug || slugify(t.title_en || ''); }
+
     function renderResearch() {
       const r = DATA.research; if (!r) return;
       $('#research-lead').textContent = L(r, 'lead');
       const themes = r.themes || [];
-      $('#research-grid').innerHTML = themes.map(t => `
-        <article class="research-card bg-white rounded-xl overflow-hidden shadow-soft border border-academic-100">
+      $('#research-grid').innerHTML = themes.map((t, i) => `
+        <article class="research-card bg-white rounded-xl overflow-hidden shadow-soft border border-academic-100"
+                 data-slug="${esc(themeSlug(t))}" tabindex="0" role="button"
+                 aria-label="Open details for ${esc(L(t,'title'))}">
           <div class="h-40 sm:h-44 img-placeholder relative">
             ${t.image ? `<img src="${esc(t.image)}" alt="" class="w-full h-full object-cover opacity-90" onerror="this.style.display='none'"/>` : ''}
           </div>
@@ -430,7 +506,92 @@
             <h3 class="text-lg font-semibold mt-1">${esc(L(t,'title'))}</h3>
             <p class="text-academic-700 mt-2 text-sm leading-relaxed">${esc(L(t,'description'))}</p>
           </div>
+          <div class="read-more" aria-hidden="true">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </div>
         </article>`).join('');
+
+      // Wire up click / keyboard activation
+      $$('.research-card').forEach(card => {
+        const open = () => openThemeModal(card.dataset.slug);
+        card.addEventListener('click', open);
+        card.addEventListener('keydown', e => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+        });
+      });
+
+      // If page loaded with #research/<slug>, open that modal now
+      const hash = location.hash;
+      if (hash.startsWith('#research/')) {
+        openThemeModal(decodeURIComponent(hash.slice('#research/'.length)));
+      }
+    }
+
+    /* ---------- Research theme modal ---------- */
+    function openThemeModal(slug) {
+      const themes = (DATA.research && DATA.research.themes) || [];
+      const t = themes.find(x => themeSlug(x) === slug);
+      if (!t) return;
+
+      $('#theme-modal-tag').textContent  = L(t, 'tag');
+      $('#theme-modal-title').textContent = L(t, 'title');
+      $('#theme-modal-lead').textContent  = L(t, 'description');
+
+      const hero = $('#theme-modal-hero');
+      if (t.image) {
+        hero.style.backgroundImage = `url('${t.image}')`;
+        hero.classList.remove('img-placeholder');
+      } else {
+        hero.style.backgroundImage = '';
+        hero.classList.add('img-placeholder');
+      }
+
+      // Render markdown details
+      const md = L(t, 'details') || '';
+      $('#theme-modal-body').innerHTML = md ? marked.parse(md) : '';
+
+      // Gallery
+      const gallery = t.gallery || [];
+      $('#theme-modal-gallery').innerHTML = gallery.map(g => `
+        <figure class="bg-academic-50 rounded-lg overflow-hidden border border-academic-100">
+          <img src="${esc(g.image)}" alt="${esc(g['caption_' + currentLang] || '')}" class="w-full h-48 object-cover" loading="lazy"/>
+          ${g['caption_' + currentLang] ? `<figcaption class="text-xs text-academic-700 p-3 leading-snug">${esc(g['caption_' + currentLang])}</figcaption>` : ''}
+        </figure>`).join('');
+
+      // Related papers — resolve DOIs against publications.yml when possible
+      const dois = t.related_paper_dois || [];
+      const pubs = (DATA.publications && DATA.publications.items) || [];
+      const papersLabel = currentLang === 'ja' ? '関連論文' : 'Related publications';
+      $('#theme-modal-papers').innerHTML = dois.length ? `
+        <h3 class="text-sm font-semibold tracking-wider text-academic-600 uppercase mb-3">${papersLabel}</h3>
+        <ul class="space-y-2 text-sm">
+          ${dois.map(doi => {
+            const p = pubs.find(x => (x.doi || '').toLowerCase() === String(doi).toLowerCase());
+            const link = `https://doi.org/${esc(doi)}`;
+            if (p) {
+              return `<li>${richHTML(esc(p.authors))} "${esc(p.title)}." <em>${esc(p.journal)}</em> ${p.volume ? `<strong>${esc(p.volume)}</strong>` : ''}${p.pages ? `, ${esc(p.pages)}` : ''} (${esc(p.year)}). <a href="${link}" target="_blank" rel="noopener" class="text-academic-600 hover:text-academic-500">[DOI]</a></li>`;
+            }
+            return `<li><a href="${link}" target="_blank" rel="noopener" class="text-academic-700 hover:text-academic-500">${esc(doi)}</a></li>`;
+          }).join('')}
+        </ul>` : '';
+
+      // Show + lock body scroll + update URL hash
+      const modal = $('#theme-modal');
+      modal.classList.add('open');
+      modal.querySelector('.modal-panel').scrollTop = 0;
+      document.body.style.overflow = 'hidden';
+      const target = '#research/' + slug;
+      if (location.hash !== target) history.pushState({ theme: slug }, '', target);
+      modal.focus();
+    }
+
+    function closeThemeModal(updateHash = true) {
+      const modal = $('#theme-modal');
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+      if (updateHash && location.hash.startsWith('#research/')) {
+        history.pushState({}, '', location.pathname + location.search);
+      }
     }
 
     function renderPublications() {
@@ -644,6 +805,22 @@
     onScroll();
 
     $('#year').textContent = new Date().getFullYear();
+
+    /* ---------- Research modal events ---------- */
+    $('#theme-modal-close').addEventListener('click', () => closeThemeModal());
+    $('#theme-modal').addEventListener('click', e => {
+      if (e.target === e.currentTarget) closeThemeModal();
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && $('#theme-modal').classList.contains('open')) closeThemeModal();
+    });
+    window.addEventListener('popstate', () => {
+      if (location.hash.startsWith('#research/')) {
+        openThemeModal(decodeURIComponent(location.hash.slice('#research/'.length)));
+      } else {
+        closeThemeModal(false);
+      }
+    });
 
     init();
   })();
