@@ -11,7 +11,7 @@ themes:
       2D, and 3D continuous ion-transport pathways for fast and anisotropic
       conduction.
     description_ja: ナノ相分離液晶とイオン液体を組み合わせ、1次元・2次元・3次元の連続的なイオン伝導パスを形成。高速かつ異方的なイオン輸送を実現します。
-    image: /assets/images/toc.tif
+    image: ""
   - tag_en: Theme 02
     tag_ja: テーマ 02
     title_en: Soft Actuators & Haptic Devices
