@@ -51,7 +51,7 @@ stats:
 contact:
   address_ja: 物質・材料研究機構（NIMS）<br/>高分子・バイオ材料研究センター 分子メカトロニクスグループ<br/>〒305-0047
     茨城県つくば市千現1-2-1
-  map_lng: 140.1244
+  map_lng: 140.1251
   external_links:
     - label_en: Molecular Mechatronics Group (NIMS)
       label_ja: 分子メカトロニクスグループ（NIMS）
@@ -74,7 +74,7 @@ contact:
   address_en: Molecular Mechatronics Group<br/>Research Center for Macromolecules
     and Biomaterials<br/>National Institute for Materials Science
     (NIMS)<br/>1-2-1 Sengen, Tsukuba, Ibaraki 305-0047, Japan
-  map_lat: 36.0702
+  map_lat: 36.071
   email: YOSHIO.Masafumi@nims.go.jp
   join_en: We welcome inquiries from prospective students, postdoctoral fellows,
     and visiting researchers. Please email Prof. Yoshio with a CV and a brief
