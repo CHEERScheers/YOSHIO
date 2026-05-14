@@ -153,7 +153,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
       <div class="flex items-center justify-between h-16 md:h-20">
         <a href="#home" class="flex items-center gap-2 sm:gap-3 group min-w-0">
-          <div class="h-9 w-9 md:h-10 md:w-10 rounded-md bg-academic-700 text-white grid place-items-center font-serif font-bold text-lg shadow-soft shrink-0">Y</div>
+          <div id="nav-logo" class="h-9 w-9 md:h-10 md:w-10 rounded-md bg-academic-700 text-white grid place-items-center font-serif font-bold text-lg shadow-soft shrink-0 overflow-hidden">Y</div>
           <div class="leading-tight min-w-0">
             <div id="brand-main" class="text-academic-900 font-semibold tracking-wide text-sm md:text-base truncate">YOSHIO Lab</div>
             <div id="brand-sub"  class="text-academic-600 text-[10px] md:text-xs truncate">Molecular Mechatronics · NIMS</div>
@@ -336,7 +336,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-12 grid md:grid-cols-3 gap-8 sm:gap-10">
       <div>
         <div class="flex items-center gap-3">
-          <div class="h-10 w-10 rounded-md bg-white/10 grid place-items-center font-serif font-bold text-lg">Y</div>
+          <div id="footer-logo" class="h-10 w-10 rounded-md bg-white/10 grid place-items-center font-serif font-bold text-lg overflow-hidden">Y</div>
           <div>
             <div id="footer-brand" class="font-semibold">YOSHIO Lab</div>
             <div id="footer-brand-sub" class="text-xs text-academic-300">Molecular Mechatronics · NIMS</div>
@@ -439,10 +439,22 @@
     /* ---------- Renderers ---------- */
     function renderBrand() {
       const s = DATA.site; if (!s) return;
-      $('#brand-main').textContent     = L(s.brand,'') || (s.brand && s.brand[currentLang]) || '';
-      $('#brand-sub').textContent      = (s.brand_sub && s.brand_sub[currentLang]) || '';
-      $('#footer-brand').textContent     = (s.brand && s.brand[currentLang]) || '';
+      const b = s.brand || {};
+      $('#brand-main').textContent       = b[currentLang] || b.en || '';
+      $('#brand-sub').textContent        = (s.brand_sub && s.brand_sub[currentLang]) || '';
+      $('#footer-brand').textContent     = b[currentLang] || b.en || '';
       $('#footer-brand-sub').textContent = (s.brand_sub && s.brand_sub[currentLang]) || '';
+
+      // Logo: image if uploaded, otherwise fallback letter
+      const logo = (b.logo_image || '').trim();
+      const letter = (b.logo_letter || 'Y').trim();
+      const html = logo
+        ? `<img src="${esc(logo)}" alt="Logo" class="w-full h-full object-cover" />`
+        : esc(letter);
+      const navLogo    = $('#nav-logo');
+      const footerLogo = $('#footer-logo');
+      if (navLogo)    navLogo.innerHTML    = html;
+      if (footerLogo) footerLogo.innerHTML = html;
     }
 
     function renderHero() {

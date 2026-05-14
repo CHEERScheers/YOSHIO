@@ -48,6 +48,8 @@ collections:
             fields:
               - { label: "EN", name: "en", widget: "string" }
               - { label: "JA", name: "ja", widget: "string" }
+              - { label: "Logo image (optional, upload from your computer)", name: "logo_image", widget: "image", required: false, hint: "Square image works best. PNG with transparent background or SVG. Saved to /assets/images/." }
+              - { label: "Fallback letter (shown when no logo image)", name: "logo_letter", widget: "string", required: false, default: "Y", hint: "Single character or short text shown in the colored square when no image is uploaded." }
           - label: "Brand sub-title"
             name: "brand_sub"
             widget: "object"
