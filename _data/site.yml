@@ -41,10 +41,10 @@ about:
     actuators, haptic interfaces, sensors, and energy devices.
   p2_ja: ナノ相分離自己組織化を活用して、イオン・電子・光の輸送を精密制御する超分子液晶、イオン性高分子電解質、π共役機能性材料を設計しています。基礎的なソフトマター化学と、次世代ソフトアクチュエータ・ハプティクスデバイス・センサ・エネルギーデバイスをつなぐ研究を推進しています。
 stats:
-  - value: Actuator
+  - value: Electric Field-Responsive Actuator
     label_en: Ion Transport
     label_ja: イオン伝導
-  - value: LC SC
+  - value: Light-Responsive π-Stacked Actuator
     label_en: Electron Transport
     label_ja: 電子伝導
   - value: 120+
